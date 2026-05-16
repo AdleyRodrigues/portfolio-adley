@@ -1,0 +1,17 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" fill="#0A1225"/>
+  <rect x="74" y="64" width="1452" height="772" rx="34" fill="#131E39" stroke="#2A3B63"/>
+  <rect x="138" y="134" width="540" height="56" rx="12" fill="#1C2A4B"/>
+  <rect x="138" y="214" width="980" height="30" rx="8" fill="#1A2744"/>
+  <rect x="138" y="266" width="860" height="30" rx="8" fill="#1A2744"/>
+  <rect x="138" y="336" width="510" height="432" rx="20" fill="#101E39"/>
+  <rect x="668" y="336" width="792" height="432" rx="20" fill="#101E39"/>
+  <rect x="704" y="382" width="464" height="62" rx="18" fill="#7C8BFF" fill-opacity="0.38"/>
+  <rect x="992" y="472" width="430" height="62" rx="18" fill="#2AD4C1" fill-opacity="0.35"/>
+  <rect x="704" y="562" width="520" height="62" rx="18" fill="#7C8BFF" fill-opacity="0.28"/>
+  <rect x="1042" y="652" width="380" height="62" rx="18" fill="#2AD4C1" fill-opacity="0.26"/>
+  <circle cx="274" cy="470" r="62" fill="#4F5DFF" fill-opacity="0.34"/>
+  <circle cx="420" cy="536" r="44" fill="#2AD4C1" fill-opacity="0.38"/>
+  <circle cx="236" cy="602" r="32" fill="#7C8BFF" fill-opacity="0.4"/>
+  <text x="142" y="168" fill="#E8EEFF" font-family="Inter, Arial, sans-serif" font-size="32" font-weight="700">Async Chat + AI Integration</text>
+</svg>

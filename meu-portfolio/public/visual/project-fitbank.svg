@@ -1,0 +1,18 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" fill="#0C142A"/>
+  <rect x="68" y="62" width="1464" height="776" rx="34" fill="#121E3A" stroke="#2E3E66"/>
+  <rect x="132" y="138" width="640" height="64" rx="14" fill="#1B2B4E"/>
+  <rect x="132" y="228" width="1050" height="36" rx="10" fill="#1A2949"/>
+  <rect x="132" y="284" width="860" height="36" rx="10" fill="#1A2949"/>
+  <rect x="132" y="374" width="1336" height="390" rx="20" fill="#0F1B34"/>
+  <path d="M132 628C260 538 388 520 516 582C644 644 772 654 900 600C1028 546 1156 554 1284 616C1347 648 1409 679 1468 700V764H132V628Z" fill="url(#paint0_linear)"/>
+  <circle cx="1292" cy="194" r="112" fill="#4F5DFF" fill-opacity="0.28"/>
+  <circle cx="1370" cy="214" r="78" fill="#2AD4C1" fill-opacity="0.32"/>
+  <text x="136" y="182" fill="#E8EEFF" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="700">Onboarding PF/PJ - White-label Banking</text>
+  <defs>
+    <linearGradient id="paint0_linear" x1="132" y1="536" x2="1468" y2="744" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#4F5DFF" stop-opacity="0.62"/>
+      <stop offset="1" stop-color="#2AD4C1" stop-opacity="0.45"/>
+    </linearGradient>
+  </defs>
+</svg>

@@ -1,0 +1,39 @@
+## Resumo executivo
+
+Este case cobre a modernização do onboarding PF/PJ de uma plataforma white-label usada por dezenas de bancos digitais. O objetivo foi reduzir fricção de UX sem sacrificar compliance, confiabilidade e rastreabilidade de dados.
+
+## Contexto e restrições
+
+- Fluxo legado em tecnologia anterior ao stack React.
+- Operação multiempresa com alto impacto de qualquer regressão.
+- Necessidade de integração com validação de identidade e processos de aprovação.
+
+## Meu papel e escopo
+
+Atuei como Arquiteto de Software, definindo arquitetura de front-end e integração entre etapas do onboarding, além de orientar squads em padrões técnicos.
+
+## Problema
+
+O processo de abertura de conta possuía pontos de abandono e baixa previsibilidade operacional em etapas críticas, especialmente onde havia envio de documentos e validação de dados.
+
+## Abordagem técnica
+
+- Migração para React + TypeScript com estrutura de componentes reutilizáveis.
+- Persistência incremental dos dados por etapa para evitar perda de preenchimento.
+- Orquestração de upload de documentos e acompanhamento assíncrono de status.
+- Integração com serviços externos de verificação de identidade.
+
+## Trade-offs
+
+- Priorizamos previsibilidade e resiliência sobre customizações visuais avançadas nas primeiras entregas.
+- Houve investimento inicial maior em contratos de API e padronização para reduzir custo de manutenção posterior.
+
+## Resultado
+
+- Experiência de uso percebida como mais clara e fluida pelos usuários finais.
+- Base técnica preparada para evolução contínua em larga escala white-label.
+- Melhoria do fluxo de onboarding com menor risco de perda de dados em formulários extensos.
+
+## Aprendizados
+
+Em fluxo financeiro, o ganho de UX precisa andar junto com auditabilidade e controle operacional. Arquitetura front-end só é boa quando facilita tanto a vida do usuário quanto a operação do negócio.

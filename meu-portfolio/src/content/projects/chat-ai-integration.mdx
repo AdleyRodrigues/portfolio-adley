@@ -1,0 +1,39 @@
+## Resumo executivo
+
+Este case descreve a implementação de chat assíncrono interno com integração de IA para acelerar rotinas de suporte em um app gerencial de RH.
+
+## Contexto e restrições
+
+- Fluxos internos com alta recorrência de perguntas operacionais.
+- Necessidade de registrar histórico e manter contexto das conversas.
+- Integração com API de IA em cenário real de uso do time.
+
+## Meu papel e escopo
+
+Liderei a implementação front-end do chat e a integração com backend/API de IA, com foco em usabilidade e confiabilidade dos estados da interface.
+
+## Problema
+
+O suporte interno concentrava tarefas repetitivas que consumiam tempo da equipe e reduziam velocidade de resposta.
+
+## Abordagem técnica
+
+- Construção de interface de chat assíncrono em React + TypeScript.
+- Gestão de estado para mensagens, status de envio e histórico de conversas.
+- Integração com API da Anthropic para automatização de interações recorrentes.
+- Tratamento explícito de loading, falha e fallback para ação manual.
+
+## Trade-offs
+
+- Priorizamos estabilidade e clareza de fluxo antes de recursos avançados.
+- Definimos guardrails para evitar automações opacas em etapas críticas.
+
+## Resultado
+
+- Redução de carga operacional em tarefas repetitivas do suporte.
+- Menor tempo de resposta para triagem e encaminhamento de demandas.
+- Estrutura reaproveitável para evoluções futuras de assistente interno.
+
+## Aprendizados
+
+Integração de IA em produto corporativo funciona melhor quando o usuário mantém controle e visibilidade sobre o que está sendo automatizado.

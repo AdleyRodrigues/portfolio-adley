@@ -1,0 +1,16 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" fill="#101729"/>
+  <rect x="58" y="56" width="1484" height="788" rx="32" fill="#141F38" stroke="#304162"/>
+  <rect x="118" y="128" width="584" height="56" rx="12" fill="#1D2A48"/>
+  <rect x="118" y="208" width="1130" height="30" rx="8" fill="#1A2743"/>
+  <rect x="118" y="260" width="1130" height="30" rx="8" fill="#1A2743"/>
+  <rect x="118" y="334" width="460" height="430" rx="18" fill="#10213F"/>
+  <rect x="598" y="334" width="460" height="430" rx="18" fill="#10213F"/>
+  <rect x="1078" y="334" width="404" height="430" rx="18" fill="#10213F"/>
+  <path d="M156 650L222 588L288 616L354 548L420 574L486 510L552 536" stroke="#7C8BFF" stroke-width="10" stroke-linecap="round"/>
+  <path d="M636 674L702 612L768 560L834 590L900 520L966 556L1020 512" stroke="#2AD4C1" stroke-width="10" stroke-linecap="round"/>
+  <rect x="1130" y="382" width="298" height="22" rx="6" fill="#2A3C5F"/>
+  <rect x="1130" y="424" width="260" height="22" rx="6" fill="#2A3C5F"/>
+  <rect x="1130" y="466" width="220" height="22" rx="6" fill="#2A3C5F"/>
+  <text x="120" y="164" fill="#E8EEFF" font-family="Inter, Arial, sans-serif" font-size="32" font-weight="700">Dashboard + Design System</text>
+</svg>

@@ -273,6 +273,7 @@ export const analyticsEvents = {
   linkedinClick: 'linkedin_click',
   githubClick: 'github_click',
   whatsappClick: 'whatsapp_click',
+  backToTopClick: 'back_to_top_click',
   instagramClick: 'instagram_click',
   companyInstagramClick: 'company_instagram_click',
   companyClick: 'company_click',

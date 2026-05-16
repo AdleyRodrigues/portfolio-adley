@@ -1,5 +1,6 @@
 import { createTheme, responsiveFontSizes, type PaletteMode } from '@mui/material'
 import { getModeTokens } from './tokens'
+import { glassSurface } from './glass'
 
 export function createAppTheme(mode: PaletteMode) {
   const tokens = getModeTokens(mode)
@@ -70,9 +71,9 @@ export function createAppTheme(mode: PaletteMode) {
       },
       MuiPaper: {
         styleOverrides: {
-          root: {
-            backdropFilter: 'blur(10px)',
-          },
+          root: ({ theme }) => ({
+            ...glassSurface(theme, 'default'),
+          }),
         },
       },
       MuiButton: {
@@ -98,10 +99,11 @@ export function createAppTheme(mode: PaletteMode) {
       },
       MuiCard: {
         styleOverrides: {
-          root: {
+          root: ({ theme }) => ({
+            ...glassSurface(theme, 'default'),
             borderRadius: 18,
             boxShadow: mode === 'light' ? '0 18px 40px -26px rgba(24,35,66,0.38)' : '0 18px 45px -24px rgba(5,8,20,0.7)',
-          },
+          }),
         },
       },
     },

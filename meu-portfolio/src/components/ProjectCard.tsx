@@ -11,6 +11,7 @@ import { trackEvent } from '../lib/analytics'
 import { Tag } from './ui/Tag'
 import { motion } from 'framer-motion'
 import { projectVisuals } from '../data/visualAssets'
+import { glassSurface } from '../theme/glass'
 
 type ProjectCardProps = {
   project: Project
@@ -34,12 +35,11 @@ export function ProjectCard({ project, compact = false }: ProjectCardProps) {
       component={motion.article}
       whileHover={{ y: -6 }}
       transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-      sx={{
+      sx={(theme) => ({
+        ...glassSurface(theme, 'default'),
         position: 'relative',
         overflow: 'hidden',
-        border: (theme) => `1px solid ${theme.palette.divider}`,
-        bgcolor: 'background.paper',
-      }}
+      })}
     >
       <Box
         aria-hidden

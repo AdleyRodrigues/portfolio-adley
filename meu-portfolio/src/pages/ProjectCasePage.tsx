@@ -13,6 +13,7 @@ import { Tag } from '../components/ui/Tag'
 import { analyticsEvents, projects, siteUrl } from '../data/siteContent'
 import { projectVisuals } from '../data/visualAssets'
 import { trackEvent } from '../lib/analytics'
+import { glassSurface } from '../theme/glass'
 import FitbankCase from '../content/projects/fitbank-onboarding-kpi.mdx'
 import DashboardCase from '../content/projects/design-system-dashboard-react.mdx'
 import ChatAiCase from '../content/projects/chat-ai-integration.mdx'
@@ -87,14 +88,13 @@ export function ProjectCasePage() {
         <Container maxWidth={false} sx={{ px: { xs: 2, sm: 4, md: 6 }, py: { xs: 8, md: 10 }, maxWidth: 1280 }}>
           <Paper
             variant="outlined"
-            sx={{
+            sx={(theme) => ({
+              ...glassSurface(theme, 'strong'),
               position: 'relative',
               overflow: 'hidden',
               borderRadius: 3.5,
               p: { xs: 3, md: 4.5 },
-              bgcolor: (theme) =>
-                theme.palette.mode === 'light' ? 'rgba(255,255,255,0.88)' : 'rgba(18,26,46,0.88)',
-            }}
+            })}
           >
             <Box
               aria-hidden

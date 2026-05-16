@@ -4,18 +4,19 @@ import { trackEvent } from '../lib/analytics'
 import { Button } from './ui/Button'
 import { motion } from 'framer-motion'
 import { ThemeToggleButton } from '../theme/ThemeToggleButton'
+import { glassSurface } from '../theme/glass'
 
 export function SiteHeader() {
   return (
     <AppBar
       position="sticky"
       elevation={0}
-      sx={{
+      sx={(theme) => ({
+        ...glassSurface(theme, 'strong'),
+        position: 'sticky',
         top: 0,
-        bgcolor: (theme) => (theme.palette.mode === 'light' ? 'rgba(255,255,255,0.74)' : 'rgba(12,18,34,0.82)'),
-        borderBottom: (theme) => `1px solid ${theme.palette.divider}`,
-        backdropFilter: 'blur(14px)',
-      }}
+        borderBottom: `1px solid ${theme.palette.divider}`,
+      })}
     >
       <Container
         maxWidth={false}

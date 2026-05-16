@@ -37,6 +37,7 @@ import {
 } from '../data/siteContent'
 import { trackEvent } from '../lib/analytics'
 import { fadeInUp, staggerContainer } from '../lib/motion'
+import { glassSurface } from '../theme/glass'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -256,14 +257,13 @@ export function HomePage() {
                 <Paper
                   className="hero-proof"
                   variant="outlined"
-                  sx={{
+                  sx={(theme) => ({
+                    ...glassSurface(theme, 'strong'),
                     p: { xs: 2.5, md: 3 },
                     borderRadius: 3.2,
                     position: 'relative',
                     overflow: 'hidden',
-                    bgcolor: (theme) =>
-                      theme.palette.mode === 'light' ? 'rgba(255,255,255,0.86)' : 'rgba(18,26,46,0.86)',
-                  }}
+                  })}
                 >
                   <Box
                     aria-hidden
@@ -286,13 +286,12 @@ export function HomePage() {
                       <Paper
                         key={item}
                         variant="outlined"
-                        sx={{
+                        sx={(theme) => ({
+                          ...glassSurface(theme, 'default'),
                           px: 1.6,
                           py: 1,
                           borderRadius: 2,
-                          bgcolor: (theme) =>
-                            theme.palette.mode === 'light' ? 'rgba(255,255,255,0.7)' : 'rgba(18,26,46,0.74)',
-                        }}
+                        })}
                       >
                         <Typography variant="body2" sx={{ fontWeight: 600 }}>
                           {item}
@@ -313,12 +312,11 @@ export function HomePage() {
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.45 }}
             variant="outlined"
-            sx={{
+            sx={(theme) => ({
+              ...glassSurface(theme, 'default'),
               p: { xs: 2.2, md: 3 },
               borderRadius: 3,
-              bgcolor: (theme) =>
-                theme.palette.mode === 'light' ? 'rgba(255,255,255,0.9)' : 'rgba(18,26,46,0.8)',
-            }}
+            })}
           >
             <Typography variant="overline" color="text.secondary" sx={{ letterSpacing: '0.2em', fontWeight: 700 }}>
               Impacto direto

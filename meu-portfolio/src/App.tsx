@@ -5,6 +5,7 @@ import { ProjectCasePage } from './pages/ProjectCasePage'
 import { ProjectsPage } from './pages/ProjectsPage'
 import { HomePage } from './pages/HomePage'
 import { NotFoundPage } from './pages/NotFoundPage'
+import { BackToTopButton } from './components/BackToTopButton'
 
 function App() {
   const location = useLocation()
@@ -21,6 +22,7 @@ function App() {
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </AnimatePresence>
+      <BackToTopButton />
     </>
   )
 }

@@ -1,6 +1,8 @@
 import MuiButton from '@mui/material/Button'
 import type { ButtonProps as MuiButtonProps } from '@mui/material/Button'
 import type { ReactNode } from 'react'
+import type { Theme } from '@mui/material/styles'
+import { glassSurface } from '../../theme/glass'
 
 type ButtonVariant = 'solid' | 'ghost'
 
@@ -22,10 +24,8 @@ export function Button({ as = 'button', variant = 'solid', children, sx, ...prop
         {
           fontWeight: 700,
           '&:active': { transform: 'scale(0.98)' },
-          ...(variant === 'ghost' && {
-            bgcolor: (theme) => theme.palette.background.paper,
-          }),
         },
+        ...(variant === 'ghost' ? [((theme: Theme) => ({ ...glassSurface(theme, 'default') }))] : []),
         ...(Array.isArray(sx) ? sx : [sx]),
       ]}
       {...props}

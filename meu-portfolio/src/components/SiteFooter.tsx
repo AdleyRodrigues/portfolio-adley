@@ -1,17 +1,17 @@
 import { Box, Container, Stack, Typography } from '@mui/material'
 import { socialLinks } from '../data/siteContent'
 import { motion } from 'framer-motion'
+import { glassSurface } from '../theme/glass'
 
 export function SiteFooter() {
   return (
     <Box
       component="footer"
-      sx={{
-        borderTop: (theme) => `1px solid ${theme.palette.divider}`,
+      sx={(theme) => ({
+        ...glassSurface(theme, 'default'),
+        borderTop: `1px solid ${theme.palette.divider}`,
         py: 6,
-        bgcolor: (theme) => (theme.palette.mode === 'light' ? 'rgba(255,255,255,0.64)' : 'rgba(10,16,32,0.62)'),
-        backdropFilter: 'blur(8px)',
-      }}
+      })}
     >
       <Container
         maxWidth={false}

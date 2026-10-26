@@ -86,6 +86,9 @@ export function CurriculoPage() {
           content="Trajetória profissional, stack técnica e experiências de liderança técnica em front-end e produtos escaláveis."
         />
         <meta property="og:url" content={`${siteUrl}/curriculo`} />
+        <meta property="og:image" content={`${siteUrl}/og/adley-portfolio.png`} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content={`${siteUrl}/og/adley-portfolio.png`} />
       </Helmet>
 
       <SiteHeader />

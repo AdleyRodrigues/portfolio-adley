@@ -68,18 +68,21 @@ export function ProjectCasePage() {
   return (
     <>
       <Helmet>
-        <title>{project.title} | Case Study | Adley Rodrigues de Castro</title>
+        <html lang="pt-BR" />
+        <title>{`${project.title} | Case Study | Adley Rodrigues`}</title>
         <meta name="description" content={project.summary} />
         <link rel="canonical" href={`${siteUrl}/projetos/${project.slug}`} />
-        <meta property="og:title" content={`${project.title} | Case Study`} />
+        <meta property="og:title" content={`${project.title} | Case Study | Adley Rodrigues`} />
         <meta property="og:description" content={project.summary} />
         <meta property="og:url" content={`${siteUrl}/projetos/${project.slug}`} />
-        <meta property="og:image" content={`${siteUrl}/og/adley-portfolio.svg`} />
+        <meta property="og:image" content={`${siteUrl}/og/adley-portfolio.png`} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content={`${siteUrl}/og/adley-portfolio.png`} />
       </Helmet>
 
       {/* Reading Progress Bar */}
       <div
-        className="fixed left-0 top-0 z-50 h-1 bg-gradient-to-r from-indigo-500 via-sky-400 to-teal-400 transition-all duration-150"
+        className="fixed left-0 top-0 z-50 h-1 bg-blue-600 dark:bg-blue-500 transition-all duration-150"
         style={{ width: `${readingProgress}%` }}
       />
 
@@ -122,7 +125,7 @@ export function ProjectCasePage() {
 
           {/* Visual Gallery */}
           {visual?.gallery?.length ? (
-            <div className="mt-8 rounded-3xl border border-slate-200/80 dark:border-white/10 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md p-6 sm:p-8 shadow-xs">
+            <div className="mt-8 rounded-3xl border border-slate-200/80 dark:border-slate-800 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md p-6 sm:p-8 shadow-xs">
               <h2 className="text-xl font-bold text-slate-900 dark:text-white">
                 Galeria visual do projeto
               </h2>
@@ -143,7 +146,7 @@ export function ProjectCasePage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.3 }}
                     transition={{ duration: 0.45, delay: index * 0.06 }}
-                    className="w-full h-auto rounded-2xl border border-slate-200/80 dark:border-white/10 object-cover"
+                    className="w-full h-auto rounded-2xl border border-slate-200/80 dark:border-slate-800 object-cover"
                   />
                 ))}
               </div>
@@ -151,7 +154,7 @@ export function ProjectCasePage() {
           ) : null}
 
           {/* Project Links */}
-          <div className="mt-8 rounded-3xl border border-slate-200/80 dark:border-white/10 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md p-6 sm:p-8 shadow-xs">
+          <div className="mt-8 rounded-3xl border border-slate-200/80 dark:border-slate-800 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md p-6 sm:p-8 shadow-xs">
             <h2 className="text-xl font-bold text-slate-900 dark:text-white">
               Links do projeto
             </h2>
@@ -162,7 +165,7 @@ export function ProjectCasePage() {
                     href={link.href}
                     target={link.href.startsWith('http') ? '_blank' : undefined}
                     rel={link.href.startsWith('http') ? 'noreferrer' : undefined}
-                    className="inline-flex items-center gap-1.5 text-sm font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 underline underline-offset-4"
+                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 underline underline-offset-4 transition-colors"
                     onClick={() => trackEvent(analyticsEvents.caseStudyOpen, { slug: project.slug })}
                   >
                     <span>{link.label}</span>

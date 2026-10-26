@@ -9,7 +9,7 @@ export function SiteFooter() {
           <p className="text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200">
             Adley Rodrigues de Castro
           </p>
-          <p className="text-xs text-slate-500 dark:text-slate-500 mt-0.5">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
             © {new Date().getFullYear()} • Engenharia de Software & Arquitetura de Front-End
           </p>
         </div>

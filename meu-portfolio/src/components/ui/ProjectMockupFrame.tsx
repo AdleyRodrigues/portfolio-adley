@@ -212,7 +212,11 @@ function ChatAiMockup() {
       {/* Input Bar Simulation */}
       <div className="flex items-center gap-1.5 p-1 rounded-lg bg-slate-900 border border-slate-800 text-[10px] text-slate-400">
         <span className="flex-1 px-1.5 text-slate-500 truncate">Digite para consultar a documentação...</span>
-        <button type="button" className="p-1 rounded bg-blue-600 text-white">
+        <button
+          type="button"
+          aria-label="Enviar mensagem simulada"
+          className="p-1 rounded bg-blue-600 text-white cursor-default"
+        >
           <Send className="w-2.5 h-2.5" />
         </button>
       </div>

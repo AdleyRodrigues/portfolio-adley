@@ -19,6 +19,15 @@ export function ProjectsPage() {
           content="Seleção de projetos com contexto, decisões técnicas, trade-offs e impacto para o negócio."
         />
         <link rel="canonical" href={`${siteUrl}/projetos`} />
+        <meta property="og:title" content="Projetos & Cases | Adley Rodrigues" />
+        <meta
+          property="og:description"
+          content="Seleção de projetos com contexto, decisões técnicas, trade-offs e impacto para o negócio."
+        />
+        <meta property="og:url" content={`${siteUrl}/projetos`} />
+        <meta property="og:image" content={`${siteUrl}/og/adley-portfolio.png`} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content={`${siteUrl}/og/adley-portfolio.png`} />
       </Helmet>
 
       <SkipLink />

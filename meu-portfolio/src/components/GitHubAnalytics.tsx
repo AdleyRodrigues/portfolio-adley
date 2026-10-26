@@ -1,13 +1,14 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Box, CircularProgress, Paper, Stack, Typography } from '@mui/material'
-import StarRoundedIcon from '@mui/icons-material/StarRounded'
-import ForkRightRoundedIcon from '@mui/icons-material/ForkRightRounded'
-import CodeRoundedIcon from '@mui/icons-material/CodeRounded'
-import OpenInNewRoundedIcon from '@mui/icons-material/OpenInNewRounded'
-import BoltRoundedIcon from '@mui/icons-material/BoltRounded'
-import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded'
-import AccountTreeRoundedIcon from '@mui/icons-material/AccountTreeRounded'
 import { motion } from 'framer-motion'
+import {
+  Star,
+  GitFork,
+  Code2,
+  ExternalLink,
+  Zap,
+  Calendar,
+  GitBranch,
+} from 'lucide-react'
 import {
   fetchGitHubEvents,
   fetchGitHubRepos,
@@ -30,6 +31,33 @@ type State = {
   publicGists: number
   accountCreatedAt: string
 }
+
+const FEATURED_REPOS_WHITELIST = [
+  {
+    name: 'Sistema-Gestao-Hospitalar',
+    fallbackDescription: 'Sistema completo de gestão hospitalar com TypeScript, módulos clínicos e prontuário.',
+  },
+  {
+    name: 'financial-wallet-challenge',
+    fallbackDescription: 'Full-stack financial wallet challenge construído com Next.js, TypeScript e arquitetura moderna.',
+  },
+  {
+    name: 'notification-platform',
+    fallbackDescription: 'Plataforma para orquestração de notificações e mensageria multi-canal com React e TypeScript.',
+  },
+  {
+    name: 'price-tracker',
+    fallbackDescription: 'Rastreador de preços e monitoramento em tempo real desenvolvido com TypeScript.',
+  },
+  {
+    name: 'reliable-webhook-processor',
+    fallbackDescription: 'API .NET inspirada em cenários de alta resiliência para processamento confiável de webhooks.',
+  },
+  {
+    name: 'portfolio-adley',
+    fallbackDescription: 'Portfólio de engenharia de software com foco em arquitetura front-end, acessibilidade e performance.',
+  },
+]
 
 export function GitHubAnalytics({ username }: GitHubAnalyticsProps) {
   const [state, setState] = useState<State>({
@@ -81,15 +109,34 @@ export function GitHubAnalytics({ username }: GitHubAnalyticsProps) {
     }
   }, [username])
 
-  const topRepos = useMemo(
-    () =>
-      state.repos
-        .filter((repo) => !repo.fork && !repo.archived)
-        .slice()
-        .sort((a, b) => b.stargazers_count - a.stargazers_count)
-        .slice(0, 4),
-    [state.repos],
-  )
+  const topRepos = useMemo(() => {
+    const whitelistNames = FEATURED_REPOS_WHITELIST.map((item) => item.name.toLowerCase())
+    const matched = state.repos.filter((repo) => whitelistNames.includes(repo.name.toLowerCase()))
+
+    const listToUse =
+      matched.length > 0
+        ? matched
+        : state.repos.filter(
+            (r) => !r.fork && !r.archived && r.language !== 'Java' && !r.name.toLowerCase().includes('algebra'),
+          )
+
+    const enriched = listToUse.map((repo) => {
+      const config = FEATURED_REPOS_WHITELIST.find((item) => item.name.toLowerCase() === repo.name.toLowerCase())
+      return {
+        ...repo,
+        description: repo.description || config?.fallbackDescription || 'Projeto de engenharia de software.',
+      }
+    })
+
+    return enriched
+      .sort((a, b) => {
+        const indexA = FEATURED_REPOS_WHITELIST.findIndex((item) => item.name.toLowerCase() === a.name.toLowerCase())
+        const indexB = FEATURED_REPOS_WHITELIST.findIndex((item) => item.name.toLowerCase() === b.name.toLowerCase())
+        if (indexA !== -1 && indexB !== -1) return indexA - indexB
+        return b.stargazers_count - a.stargazers_count
+      })
+      .slice(0, 4)
+  }, [state.repos])
 
   const summary = useMemo(() => {
     const totalStars = state.repos.reduce((sum, repo) => sum + repo.stargazers_count, 0)
@@ -128,182 +175,141 @@ export function GitHubAnalytics({ username }: GitHubAnalyticsProps) {
   }, [state.repos, state.events, state.accountCreatedAt])
 
   return (
-    <Stack spacing={2}>
-      <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>
-        <Paper variant="outlined" sx={{ flex: 1, p: 2.2, borderRadius: 2.6 }}>
-          <Typography variant="overline" color="text.secondary" sx={{ letterSpacing: '0.14em', fontWeight: 700 }}>
+    <div className="flex flex-col gap-6">
+      {/* 3 Metric Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="rounded-2xl border border-slate-200/80 dark:border-white/10 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md p-5 shadow-xs">
+          <span className="text-xs uppercase font-extrabold tracking-wider text-slate-500 dark:text-slate-400">
             Repositórios públicos
-          </Typography>
-          <Typography variant="h4" sx={{ mt: 0.6 }}>
+          </span>
+          <p className="mt-2 text-3xl font-extrabold text-slate-900 dark:text-white">
             {state.loading ? '--' : state.reposCount}
-          </Typography>
-        </Paper>
-        <Paper variant="outlined" sx={{ flex: 1, p: 2.2, borderRadius: 2.6 }}>
-          <Typography variant="overline" color="text.secondary" sx={{ letterSpacing: '0.14em', fontWeight: 700 }}>
+          </p>
+        </div>
+
+        <div className="rounded-2xl border border-slate-200/80 dark:border-white/10 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md p-5 shadow-xs">
+          <span className="text-xs uppercase font-extrabold tracking-wider text-slate-500 dark:text-slate-400">
             Seguidores
-          </Typography>
-          <Typography variant="h4" sx={{ mt: 0.6 }}>
+          </span>
+          <p className="mt-2 text-3xl font-extrabold text-slate-900 dark:text-white">
             {state.loading ? '--' : state.followers}
-          </Typography>
-        </Paper>
-        <Paper variant="outlined" sx={{ flex: 1, p: 2.2, borderRadius: 2.6 }}>
-          <Typography variant="overline" color="text.secondary" sx={{ letterSpacing: '0.14em', fontWeight: 700 }}>
+          </p>
+        </div>
+
+        <div className="rounded-2xl border border-slate-200/80 dark:border-white/10 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md p-5 shadow-xs">
+          <span className="text-xs uppercase font-extrabold tracking-wider text-slate-500 dark:text-slate-400">
             Gists públicos
-          </Typography>
-          <Typography variant="h4" sx={{ mt: 0.6 }}>
+          </span>
+          <p className="mt-2 text-3xl font-extrabold text-slate-900 dark:text-white">
             {state.loading ? '--' : state.publicGists}
-          </Typography>
-        </Paper>
-      </Stack>
+          </p>
+        </div>
+      </div>
 
-      <Paper variant="outlined" sx={{ p: 2.4, borderRadius: 2.6 }}>
-        <Typography variant="h6">Snapshot técnico</Typography>
+      {/* Snapshot Técnico */}
+      <div className="rounded-2xl border border-slate-200/80 dark:border-white/10 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md p-6 shadow-xs">
+        <h3 className="text-lg font-bold text-slate-900 dark:text-white">Snapshot técnico</h3>
+
         {state.loading ? (
-          <Stack sx={{ py: 3, alignItems: 'center' }}>
-            <CircularProgress size={26} />
-          </Stack>
+          <div className="py-8 flex justify-center items-center">
+            <div className="w-7 h-7 rounded-full border-2 border-indigo-600 dark:border-indigo-400 border-t-transparent animate-spin" />
+          </div>
         ) : state.error ? (
-          <Typography color="error" sx={{ mt: 1.8 }}>
+          <p className="mt-4 text-sm text-rose-500">
             {state.error}. Tente novamente em alguns instantes.
-          </Typography>
+          </p>
         ) : (
-          <Stack
-            component="ul"
-            spacing={1}
-            sx={{
-              mt: 1.6,
-              p: 0,
-              m: 0,
-              listStyle: 'none',
-              display: 'grid',
-              gridTemplateColumns: { xs: '1fr', md: 'repeat(2, minmax(0, 1fr))' },
-            }}
-          >
-            <Paper component="li" variant="outlined" sx={{ p: 1.4, borderRadius: 2 }}>
-              <Stack direction="row" spacing={0.7} sx={{ alignItems: 'center' }}>
-                <StarRoundedIcon sx={{ fontSize: 17 }} />
-                <Typography variant="body2">Stars totais: {summary.totalStars}</Typography>
-              </Stack>
-            </Paper>
-            <Paper component="li" variant="outlined" sx={{ p: 1.4, borderRadius: 2 }}>
-              <Stack direction="row" spacing={0.7} sx={{ alignItems: 'center' }}>
-                <ForkRightRoundedIcon sx={{ fontSize: 17 }} />
-                <Typography variant="body2">Forks totais: {summary.totalForks}</Typography>
-              </Stack>
-            </Paper>
-            <Paper component="li" variant="outlined" sx={{ p: 1.4, borderRadius: 2 }}>
-              <Stack direction="row" spacing={0.7} sx={{ alignItems: 'center' }}>
-                <CalendarMonthRoundedIcon sx={{ fontSize: 17 }} />
-                <Typography variant="body2">Conta ativa há: {summary.accountAgeYears} anos</Typography>
-              </Stack>
-            </Paper>
-            <Paper component="li" variant="outlined" sx={{ p: 1.4, borderRadius: 2 }}>
-              <Stack direction="row" spacing={0.7} sx={{ alignItems: 'center' }}>
-                <BoltRoundedIcon sx={{ fontSize: 17 }} />
-                <Typography variant="body2">Push events (30d): {summary.pushEvents30d}</Typography>
-              </Stack>
-            </Paper>
-            <Paper component="li" variant="outlined" sx={{ p: 1.4, borderRadius: 2 }}>
-              <Stack direction="row" spacing={0.7} sx={{ alignItems: 'center' }}>
-                <AccountTreeRoundedIcon sx={{ fontSize: 17 }} />
-                <Typography variant="body2">Repos atualizados (90d): {summary.activeRepos}</Typography>
-              </Stack>
-            </Paper>
-            <Paper component="li" variant="outlined" sx={{ p: 1.4, borderRadius: 2 }}>
-              <Stack direction="row" spacing={0.7} sx={{ alignItems: 'center' }}>
-                <CodeRoundedIcon sx={{ fontSize: 17 }} />
-                <Typography variant="body2">
-                  Linguagens top: {summary.topLanguages.length ? summary.topLanguages.join(' • ') : 'N/A'}
-                </Typography>
-              </Stack>
-            </Paper>
-            <Paper component="li" variant="outlined" sx={{ p: 1.4, borderRadius: 2, gridColumn: { md: '1 / -1' } }}>
-              <Stack direction="row" spacing={0.7} sx={{ alignItems: 'center' }}>
-                <OpenInNewRoundedIcon sx={{ fontSize: 17 }} />
-                <Typography variant="body2">Repos tocados por atividade pública (30d): {summary.reposTouched30d}</Typography>
-              </Stack>
-            </Paper>
-          </Stack>
+          <ul className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3 list-none p-0 m-0">
+            <li className="rounded-xl border border-slate-200/80 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 p-3.5 flex items-center gap-2.5 text-sm text-slate-700 dark:text-slate-300">
+              <Star className="w-4 h-4 text-amber-500 shrink-0" />
+              <span>Stars totais: <strong className="font-semibold text-slate-900 dark:text-white">{summary.totalStars}</strong></span>
+            </li>
+            <li className="rounded-xl border border-slate-200/80 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 p-3.5 flex items-center gap-2.5 text-sm text-slate-700 dark:text-slate-300">
+              <GitFork className="w-4 h-4 text-indigo-500 shrink-0" />
+              <span>Forks totais: <strong className="font-semibold text-slate-900 dark:text-white">{summary.totalForks}</strong></span>
+            </li>
+            <li className="rounded-xl border border-slate-200/80 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 p-3.5 flex items-center gap-2.5 text-sm text-slate-700 dark:text-slate-300">
+              <Calendar className="w-4 h-4 text-sky-500 shrink-0" />
+              <span>Conta ativa há: <strong className="font-semibold text-slate-900 dark:text-white">{summary.accountAgeYears} anos</strong></span>
+            </li>
+            <li className="rounded-xl border border-slate-200/80 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 p-3.5 flex items-center gap-2.5 text-sm text-slate-700 dark:text-slate-300">
+              <Zap className="w-4 h-4 text-emerald-500 shrink-0" />
+              <span>Push events (30d): <strong className="font-semibold text-slate-900 dark:text-white">{summary.pushEvents30d}</strong></span>
+            </li>
+            <li className="rounded-xl border border-slate-200/80 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 p-3.5 flex items-center gap-2.5 text-sm text-slate-700 dark:text-slate-300">
+              <GitBranch className="w-4 h-4 text-purple-500 shrink-0" />
+              <span>Repos atualizados (90d): <strong className="font-semibold text-slate-900 dark:text-white">{summary.activeRepos}</strong></span>
+            </li>
+            <li className="rounded-xl border border-slate-200/80 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 p-3.5 flex items-center gap-2.5 text-sm text-slate-700 dark:text-slate-300">
+              <Code2 className="w-4 h-4 text-pink-500 shrink-0" />
+              <span>Linguagens top: <strong className="font-semibold text-slate-900 dark:text-white">{summary.topLanguages.length ? summary.topLanguages.join(' • ') : 'N/A'}</strong></span>
+            </li>
+            <li className="md:col-span-2 rounded-xl border border-slate-200/80 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 p-3.5 flex items-center gap-2.5 text-sm text-slate-700 dark:text-slate-300">
+              <ExternalLink className="w-4 h-4 text-indigo-500 shrink-0" />
+              <span>Repos tocados por atividade pública (30d): <strong className="font-semibold text-slate-900 dark:text-white">{summary.reposTouched30d}</strong></span>
+            </li>
+          </ul>
         )}
-      </Paper>
+      </div>
 
-      <Paper variant="outlined" sx={{ p: 2.4, borderRadius: 2.6 }}>
-        <Typography variant="h6">Repositórios em destaque</Typography>
+      {/* Repositórios em destaque */}
+      <div className="rounded-2xl border border-slate-200/80 dark:border-white/10 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md p-6 shadow-xs">
+        <h3 className="text-lg font-bold text-slate-900 dark:text-white">Repositórios em destaque</h3>
 
         {state.loading ? (
-          <Stack sx={{ py: 4, alignItems: 'center' }}>
-            <CircularProgress size={28} />
-          </Stack>
+          <div className="py-8 flex justify-center items-center">
+            <div className="w-7 h-7 rounded-full border-2 border-indigo-600 dark:border-indigo-400 border-t-transparent animate-spin" />
+          </div>
         ) : state.error ? (
-          <Typography color="error" sx={{ mt: 1.8 }}>
+          <p className="mt-4 text-sm text-rose-500">
             {state.error}. Tente novamente em alguns instantes.
-          </Typography>
+          </p>
         ) : (
-          <Stack component="ul" spacing={1.2} sx={{ mt: 2, p: 0, m: 0, listStyle: 'none' }}>
+          <ul className="mt-4 flex flex-col gap-3 list-none p-0 m-0">
             {topRepos.map((repo, index) => (
-              <Box
+              <motion.li
                 key={repo.id}
-                component={motion.li}
                 initial={{ opacity: 0, y: 8 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.35, delay: index * 0.04 }}
+                className="rounded-xl border border-slate-200/80 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 p-4 flex flex-col gap-2 hover:border-indigo-400/50 transition-colors"
               >
-                <Paper
-                  variant="outlined"
-                  sx={{
-                    p: 1.6,
-                    borderRadius: 2.2,
-                    display: 'grid',
-                    gap: 0.5,
-                  }}
+                <a
+                  href={repo.html_url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-1.5 text-sm font-bold text-slate-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors w-fit"
                 >
-                  <Box
-                    component="a"
-                    href={repo.html_url}
-                    target="_blank"
-                    rel="noreferrer"
-                    sx={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: 0.7,
-                      width: 'fit-content',
-                      color: 'text.primary',
-                      fontWeight: 700,
-                      textDecoration: 'none',
-                      '&:hover': { textDecoration: 'underline', textUnderlineOffset: '4px' },
-                    }}
-                  >
-                    {repo.name}
-                    <OpenInNewRoundedIcon sx={{ fontSize: 16 }} />
-                  </Box>
+                  <span>{repo.name}</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
 
-                  {repo.description ? (
-                    <Typography color="text.secondary" sx={{ fontSize: 14 }}>
-                      {repo.description}
-                    </Typography>
-                  ) : null}
+                {repo.description ? (
+                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                    {repo.description}
+                  </p>
+                ) : null}
 
-                  <Stack direction="row" spacing={1.4} sx={{ mt: 0.4 }}>
-                    <Stack direction="row" spacing={0.4} sx={{ alignItems: 'center' }}>
-                      <StarRoundedIcon sx={{ fontSize: 16 }} />
-                      <Typography variant="caption">{repo.stargazers_count}</Typography>
-                    </Stack>
-                    <Stack direction="row" spacing={0.4} sx={{ alignItems: 'center' }}>
-                      <ForkRightRoundedIcon sx={{ fontSize: 16 }} />
-                      <Typography variant="caption">{repo.forks_count}</Typography>
-                    </Stack>
-                    <Stack direction="row" spacing={0.4} sx={{ alignItems: 'center' }}>
-                      <CodeRoundedIcon sx={{ fontSize: 16 }} />
-                      <Typography variant="caption">{repo.language ?? 'N/A'}</Typography>
-                    </Stack>
-                  </Stack>
-                </Paper>
-              </Box>
+                <div className="flex items-center gap-4 text-xs text-slate-500 dark:text-slate-400 mt-1">
+                  <span className="inline-flex items-center gap-1">
+                    <Star className="w-3.5 h-3.5 text-amber-500" />
+                    <span>{repo.stargazers_count}</span>
+                  </span>
+                  <span className="inline-flex items-center gap-1">
+                    <GitFork className="w-3.5 h-3.5 text-indigo-500" />
+                    <span>{repo.forks_count}</span>
+                  </span>
+                  <span className="inline-flex items-center gap-1">
+                    <Code2 className="w-3.5 h-3.5 text-pink-500" />
+                    <span>{repo.language ?? 'N/A'}</span>
+                  </span>
+                </div>
+              </motion.li>
             ))}
-          </Stack>
+          </ul>
         )}
-      </Paper>
-    </Stack>
+      </div>
+    </div>
   )
 }

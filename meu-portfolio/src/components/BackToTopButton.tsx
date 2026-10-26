@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react'
-import { IconButton, useTheme } from '@mui/material'
-import KeyboardArrowUpRoundedIcon from '@mui/icons-material/KeyboardArrowUpRounded'
+import { ArrowUp } from 'lucide-react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
-import { glassSurface } from '../theme/glass'
 import { analyticsEvents } from '../data/siteContent'
 import { trackEvent } from '../lib/analytics'
 
@@ -11,7 +9,6 @@ const VISIBILITY_THRESHOLD = 480
 export function BackToTopButton() {
   const [visible, setVisible] = useState(false)
   const prefersReducedMotion = useReducedMotion()
-  const theme = useTheme()
 
   useEffect(() => {
     const onScroll = () => setVisible(window.scrollY > VISIBILITY_THRESHOLD)
@@ -33,30 +30,16 @@ export function BackToTopButton() {
           animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
           exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 8 }}
           transition={{ duration: 0.2 }}
-          style={{
-            position: 'fixed',
-            right: 24,
-            bottom: 24,
-            zIndex: 1300,
-          }}
+          className="fixed bottom-6 right-6 z-50"
         >
-          <IconButton
+          <button
+            type="button"
             aria-label="Voltar ao topo"
             onClick={handleClick}
-            sx={{
-              ...glassSurface(theme, 'floating'),
-              borderRadius: 999,
-              width: 46,
-              height: 46,
-              color: 'text.primary',
-              '&:focus-visible': {
-                outline: (focusTheme) => `2px solid ${focusTheme.palette.primary.main}`,
-                outlineOffset: 2,
-              },
-            }}
+            className="w-11 h-11 rounded-full flex items-center justify-center backdrop-blur-md bg-white/80 dark:bg-slate-900/80 border border-slate-200 dark:border-white/10 text-slate-800 dark:text-slate-100 shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500/50 cursor-pointer"
           >
-            <KeyboardArrowUpRoundedIcon />
-          </IconButton>
+            <ArrowUp className="w-5 h-5" />
+          </button>
         </motion.div>
       ) : null}
     </AnimatePresence>

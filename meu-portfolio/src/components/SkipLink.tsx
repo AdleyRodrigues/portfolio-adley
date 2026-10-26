@@ -1,30 +1,10 @@
-import Box from '@mui/material/Box'
-
 export function SkipLink() {
   return (
-    <Box
-      component="a"
+    <a
       href="#conteudo-principal"
-      sx={{
-        position: 'absolute',
-        left: -9999,
-        top: 12,
-        zIndex: 1400,
-        borderRadius: 2,
-        bgcolor: 'primary.main',
-        color: 'primary.contrastText',
-        px: 2,
-        py: 1,
-        fontSize: 14,
-        fontWeight: 700,
-        '&:focus-visible': {
-          left: 16,
-          outline: 'none',
-          boxShadow: (theme) => `0 0 0 3px ${theme.palette.primary.light}`,
-        },
-      }}
+      className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-4 z-50 px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold text-sm shadow-xl ring-2 ring-indigo-400 focus:outline-none transition-all"
     >
       Pular para o conteúdo principal
-    </Box>
+    </a>
   )
 }

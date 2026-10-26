@@ -4,8 +4,7 @@ import { MDXProvider } from '@mdx-js/react'
 import type { ComponentProps } from 'react'
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import { Box, Container, Paper, Stack, Typography } from '@mui/material'
-import OpenInFullRoundedIcon from '@mui/icons-material/OpenInFullRounded'
+import { ExternalLink } from 'lucide-react'
 import { SiteFooter } from '../components/SiteFooter'
 import { SiteHeader } from '../components/SiteHeader'
 import { SkipLink } from '../components/SkipLink'
@@ -13,7 +12,6 @@ import { Tag } from '../components/ui/Tag'
 import { analyticsEvents, projects, siteUrl } from '../data/siteContent'
 import { projectVisuals } from '../data/visualAssets'
 import { trackEvent } from '../lib/analytics'
-import { glassSurface } from '../theme/glass'
 import FitbankCase from '../content/projects/fitbank-onboarding-kpi.mdx'
 import DashboardCase from '../content/projects/design-system-dashboard-react.mdx'
 import ChatAiCase from '../content/projects/chat-ai-integration.mdx'
@@ -25,10 +23,18 @@ const caseBySlug = {
 }
 
 const mdxComponents = {
-  h2: (props: ComponentProps<'h2'>) => <Typography variant="h4" sx={{ mt: 4 }} {...props} />,
-  h3: (props: ComponentProps<'h3'>) => <Typography variant="h5" sx={{ mt: 3 }} {...props} />,
-  p: (props: ComponentProps<'p'>) => <Typography color="text.secondary" sx={{ mt: 1.5, lineHeight: 1.8 }} {...props} />,
-  ul: (props: ComponentProps<'ul'>) => <Box component="ul" sx={{ mt: 1.5, pl: 3, color: 'text.secondary' }} {...props} />,
+  h2: (props: ComponentProps<'h2'>) => (
+    <h2 className="text-2xl font-bold text-slate-900 dark:text-white mt-8 mb-3" {...props} />
+  ),
+  h3: (props: ComponentProps<'h3'>) => (
+    <h3 className="text-xl font-bold text-slate-900 dark:text-white mt-6 mb-2" {...props} />
+  ),
+  p: (props: ComponentProps<'p'>) => (
+    <p className="text-base text-slate-600 dark:text-slate-300 mt-3 leading-relaxed" {...props} />
+  ),
+  ul: (props: ComponentProps<'ul'>) => (
+    <ul className="mt-3 pl-6 list-disc text-slate-600 dark:text-slate-300 space-y-1.5" {...props} />
+  ),
 }
 
 export function ProjectCasePage() {
@@ -71,146 +77,112 @@ export function ProjectCasePage() {
         <meta property="og:image" content={`${siteUrl}/og/adley-portfolio.svg`} />
       </Helmet>
 
-      <motion.div
-        style={{
-          position: 'fixed',
-          left: 0,
-          top: 0,
-          zIndex: 1300,
-          height: 4,
-          width: `${readingProgress}%`,
-          background: 'linear-gradient(90deg, #4F5DFF, #7C8BFF, #11BFAE)',
-        }}
+      {/* Reading Progress Bar */}
+      <div
+        className="fixed left-0 top-0 z-50 h-1 bg-gradient-to-r from-indigo-500 via-sky-400 to-teal-400 transition-all duration-150"
+        style={{ width: `${readingProgress}%` }}
       />
+
       <SkipLink />
       <SiteHeader />
-      <Box component="main" id="conteudo-principal">
-        <Container maxWidth={false} sx={{ px: { xs: 2, sm: 4, md: 6 }, py: { xs: 8, md: 10 }, maxWidth: 1280 }}>
-          <Paper
-            variant="outlined"
-            sx={(theme) => ({
-              ...glassSurface(theme, 'strong'),
-              position: 'relative',
-              overflow: 'hidden',
-              borderRadius: 3.5,
-              p: { xs: 3, md: 4.5 },
-            })}
-          >
-            <Box
-              aria-hidden
-              sx={{
-                position: 'absolute',
-                insetInline: 0,
-                top: -44,
-                height: 150,
-                backgroundImage: project.coverGradient,
-                filter: 'blur(52px)',
-              }}
-            />
-            <Typography variant="overline" color="text.secondary" sx={{ position: 'relative', letterSpacing: '0.16em', fontWeight: 700 }}>
-              {project.role}
-            </Typography>
-            <Typography variant="h2" sx={{ position: 'relative', mt: 1, fontSize: { xs: '2rem', md: '2.8rem' } }}>
-              {project.title}
-            </Typography>
-            <Typography color="text.secondary" sx={{ position: 'relative', mt: 2, fontSize: { xs: '1rem', md: '1.05rem' } }}>
-              {project.headline}
-            </Typography>
 
-            <Stack direction="row" spacing={1} useFlexGap sx={{ position: 'relative', mt: 2.5, flexWrap: 'wrap' }}>
+      <main id="conteudo-principal" className="min-h-screen">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-16">
+          {/* Header Card */}
+          <div className="relative overflow-hidden rounded-3xl border border-slate-200/80 dark:border-white/10 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md p-6 sm:p-10 shadow-lg">
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-x-0 -top-12 h-40 opacity-90 blur-3xl -z-10"
+              style={{ backgroundImage: project.coverGradient }}
+            />
+
+            <span className="text-xs uppercase font-extrabold tracking-widest text-indigo-600 dark:text-indigo-400">
+              {project.role}
+            </span>
+            <h1 className="mt-2 text-2xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
+              {project.title}
+            </h1>
+            <p className="mt-3 text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
+              {project.headline}
+            </p>
+
+            <div className="mt-6 flex flex-wrap gap-2">
               {project.stack.map((tech) => (
                 <Tag key={tech}>{tech}</Tag>
               ))}
-            </Stack>
-          </Paper>
+            </div>
+          </div>
 
-          <Paper variant="outlined" sx={{ mt: 4, borderRadius: 3.2, p: { xs: 3, md: 4 } }}>
+          {/* MDX Body Card */}
+          <div className="mt-8 rounded-3xl border border-slate-200/80 dark:border-white/10 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md p-6 sm:p-10 shadow-xs">
             <MDXProvider components={mdxComponents}>
               <CaseBody />
             </MDXProvider>
-          </Paper>
+          </div>
 
+          {/* Visual Gallery */}
           {visual?.gallery?.length ? (
-            <Paper variant="outlined" sx={{ mt: 4, borderRadius: 3, p: { xs: 2.2, md: 3 } }}>
-              <Typography variant="h5">Galeria visual do projeto</Typography>
-              <Typography color="text.secondary" sx={{ mt: 1 }}>
+            <div className="mt-8 rounded-3xl border border-slate-200/80 dark:border-white/10 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md p-6 sm:p-8 shadow-xs">
+              <h2 className="text-xl font-bold text-slate-900 dark:text-white">
+                Galeria visual do projeto
+              </h2>
+              <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
                 Capturas representativas da solução para destacar arquitetura de interface, densidade de informação e
                 decisões visuais.
-              </Typography>
-              <Box
-                sx={{
-                  mt: 2.2,
-                  display: 'grid',
-                  gap: 1.4,
-                  gridTemplateColumns: { xs: '1fr', md: 'repeat(2, minmax(0, 1fr))' },
-                }}
-              >
+              </p>
+              <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
                 {visual.gallery.map((imageSrc, index) => (
-                  <Box
+                  <motion.img
                     key={imageSrc}
-                    component={motion.img}
                     src={imageSrc}
                     loading="lazy"
                     alt={`Visual ${index + 1} do case ${project.title}`}
+                    width={600}
+                    height={375}
                     initial={{ opacity: 0, y: 12 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.3 }}
                     transition={{ duration: 0.45, delay: index * 0.06 }}
-                    sx={{
-                      width: '100%',
-                      borderRadius: 2.3,
-                      border: (theme) => `1px solid ${theme.palette.divider}`,
-                    }}
+                    className="w-full h-auto rounded-2xl border border-slate-200/80 dark:border-white/10 object-cover"
                   />
                 ))}
-              </Box>
-            </Paper>
+              </div>
+            </div>
           ) : null}
 
-          <Paper variant="outlined" sx={{ mt: 4, borderRadius: 3, p: 3 }}>
-            <Typography variant="h5">Links do projeto</Typography>
-            <Stack component="ul" spacing={1} sx={{ mt: 2, p: 0, m: 0, listStyle: 'none' }}>
+          {/* Project Links */}
+          <div className="mt-8 rounded-3xl border border-slate-200/80 dark:border-white/10 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md p-6 sm:p-8 shadow-xs">
+            <h2 className="text-xl font-bold text-slate-900 dark:text-white">
+              Links do projeto
+            </h2>
+            <ul className="mt-4 flex flex-col gap-2.5 list-none p-0 m-0">
               {project.links.map((link) => (
-                <Box component="li" key={link.href}>
-                  <Box
-                    component="a"
+                <li key={link.href}>
+                  <a
                     href={link.href}
                     target={link.href.startsWith('http') ? '_blank' : undefined}
                     rel={link.href.startsWith('http') ? 'noreferrer' : undefined}
-                    sx={{
-                      color: 'text.primary',
-                      fontWeight: 700,
-                      textDecorationColor: 'divider',
-                      textUnderlineOffset: '4px',
-                      '&:hover': { textDecorationColor: 'text.primary' },
-                    }}
+                    className="inline-flex items-center gap-1.5 text-sm font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 underline underline-offset-4"
                     onClick={() => trackEvent(analyticsEvents.caseStudyOpen, { slug: project.slug })}
                   >
-                    {link.label}
-                    {link.href.startsWith('http') ? (
-                      <OpenInFullRoundedIcon sx={{ ml: 0.8, fontSize: 16, verticalAlign: 'text-bottom' }} />
-                    ) : null}
-                  </Box>
-                </Box>
+                    <span>{link.label}</span>
+                    {link.href.startsWith('http') ? <ExternalLink className="w-3.5 h-3.5" /> : null}
+                  </a>
+                </li>
               ))}
-            </Stack>
-          </Paper>
+            </ul>
+          </div>
 
-          <Box
-            component={Link}
-            to="/projetos"
-            sx={{
-              mt: 3,
-              display: 'inline-flex',
-              color: 'text.primary',
-              fontWeight: 700,
-              textUnderlineOffset: '4px',
-            }}
-          >
-            Voltar para todos os projetos
-          </Box>
-        </Container>
-      </Box>
+          <div className="mt-8">
+            <Link
+              to="/projetos"
+              className="inline-flex items-center gap-1.5 text-sm font-bold text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 underline underline-offset-4"
+            >
+              ← Voltar para todos os projetos
+            </Link>
+          </div>
+        </div>
+      </main>
       <SiteFooter />
     </>
   )

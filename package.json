@@ -1,0 +1,10 @@
+{
+  "name": "portfolio-adley-root",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm --filter meu-portfolio dev",
+    "build": "pnpm --filter meu-portfolio build",
+    "preview": "pnpm --filter meu-portfolio preview",
+    "lint": "pnpm --filter meu-portfolio lint"
+  }
+}

@@ -1,6 +1,5 @@
 import type { PropsWithChildren, ReactNode } from 'react'
 import { motion } from 'framer-motion'
-import { Box, Container, Typography } from '@mui/material'
 import { fadeIn, fadeInUp, staggerContainer } from '../lib/motion'
 
 type SectionProps = PropsWithChildren<{
@@ -27,58 +26,39 @@ export function Section({
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.25 }}
+      className="border-t border-slate-200/80 dark:border-slate-800 py-16 md:py-24"
     >
-      <Box sx={{ borderTop: (theme) => `1px solid ${theme.palette.divider}`, py: { xs: 9, md: 11 } }}>
-        <Container
-          maxWidth={false}
-          component={motion.div}
-          sx={{
-            display: 'grid',
-            gap: { xs: 6, lg: 10 },
-            gridTemplateColumns: { xs: '1fr', lg: 'minmax(280px, 0.9fr) minmax(0, 1.7fr)' },
-            px: { xs: 2, sm: 4, md: 6 },
-          }}
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.25 }}
+      <motion.div
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid gap-8 lg:gap-14 lg:grid-cols-[minmax(280px,0.85fr)_minmax(0,1.75fr)]"
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.25 }}
+      >
+        <motion.div
+          variants={fadeInUp}
+          className="flex flex-col gap-3 lg:sticky lg:top-24 h-fit"
         >
-          <Box
-            component={motion.div}
-            variants={fadeInUp}
-            sx={{
-              display: 'grid',
-              gap: 2,
-              position: { lg: 'sticky' },
-              top: { lg: 96 },
-              height: 'fit-content',
-            }}
-          >
-            {eyebrow ? (
-              <Typography
-                variant="overline"
-                color="text.secondary"
-                sx={{ fontWeight: 700, letterSpacing: '0.26em', fontSize: '0.7rem' }}
-              >
-                {eyebrow}
-              </Typography>
-            ) : null}
-            <Typography variant="h2" sx={{ fontSize: { xs: '2rem', md: '2.5rem' }, lineHeight: 1.1 }}>
-              {title}
-            </Typography>
-            {description ? (
-              <Typography color="text.secondary" sx={{ maxWidth: 560, lineHeight: 1.8 }}>
-                {description}
-              </Typography>
-            ) : null}
-            {actions}
-          </Box>
+          {eyebrow ? (
+            <span className="text-xs uppercase font-bold tracking-[0.2em] font-mono text-blue-600 dark:text-blue-400">
+              {eyebrow}
+            </span>
+          ) : null}
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
+            {title}
+          </h2>
+          {description ? (
+            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-xl leading-relaxed">
+              {description}
+            </p>
+          ) : null}
+          {actions}
+        </motion.div>
 
-          <Box component={motion.div} variants={fadeInUp} sx={{ display: 'grid', gap: 3 }}>
-            {children}
-          </Box>
-        </Container>
-      </Box>
+        <motion.div variants={fadeInUp} className="flex flex-col gap-6">
+          {children}
+        </motion.div>
+      </motion.div>
     </motion.section>
   )
 }

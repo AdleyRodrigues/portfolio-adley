@@ -4,6 +4,7 @@ import { AnalyticsScript } from './components/AnalyticsScript'
 import { ProjectCasePage } from './pages/ProjectCasePage'
 import { ProjectsPage } from './pages/ProjectsPage'
 import { HomePage } from './pages/HomePage'
+import { CurriculoPage } from './pages/CurriculoPage'
 import { NotFoundPage } from './pages/NotFoundPage'
 import { BackToTopButton } from './components/BackToTopButton'
 
@@ -18,6 +19,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/projetos" element={<ProjectsPage />} />
           <Route path="/projetos/:slug" element={<ProjectCasePage />} />
+          <Route path="/curriculo" element={<CurriculoPage />} />
           <Route path="/home" element={<Navigate to="/" replace />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>

@@ -1,5 +1,6 @@
 import { createContext } from 'react'
-import type { PaletteMode } from '@mui/material'
+
+export type PaletteMode = 'light' | 'dark'
 
 export type ThemeModeContextType = {
   mode: PaletteMode

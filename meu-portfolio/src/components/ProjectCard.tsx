@@ -1,17 +1,11 @@
 import { Link } from 'react-router-dom'
-import { Box, Card, CardContent, Typography } from '@mui/material'
-import CodeRoundedIcon from '@mui/icons-material/CodeRounded'
-import DataObjectRoundedIcon from '@mui/icons-material/DataObjectRounded'
-import StorageRoundedIcon from '@mui/icons-material/StorageRounded'
-import HubRoundedIcon from '@mui/icons-material/HubRounded'
-import QueryStatsRoundedIcon from '@mui/icons-material/QueryStatsRounded'
+import { motion } from 'framer-motion'
+import { Code, Braces, Database, Network, BarChart3 } from 'lucide-react'
 import type { Project } from '../types/site'
 import { analyticsEvents } from '../data/siteContent'
 import { trackEvent } from '../lib/analytics'
 import { Tag } from './ui/Tag'
-import { motion } from 'framer-motion'
-import { projectVisuals } from '../data/visualAssets'
-import { glassSurface } from '../theme/glass'
+import { ProjectMockupFrame } from './ui/ProjectMockupFrame'
 
 type ProjectCardProps = {
   project: Project
@@ -20,128 +14,76 @@ type ProjectCardProps = {
 
 function getStackIcon(stack: string) {
   const value = stack.toLowerCase()
-  if (value.includes('react') || value.includes('typescript') || value.includes('api')) return <DataObjectRoundedIcon sx={{ fontSize: 14 }} />
-  if (value.includes('sql') || value.includes('database')) return <StorageRoundedIcon sx={{ fontSize: 14 }} />
-  if (value.includes('dashboard') || value.includes('analytics')) return <QueryStatsRoundedIcon sx={{ fontSize: 14 }} />
-  if (value.includes('ci') || value.includes('devops')) return <HubRoundedIcon sx={{ fontSize: 14 }} />
-  return <CodeRoundedIcon sx={{ fontSize: 14 }} />
+  if (value.includes('react') || value.includes('typescript') || value.includes('api')) {
+    return <Braces className="w-3.5 h-3.5" />
+  }
+  if (value.includes('sql') || value.includes('database')) {
+    return <Database className="w-3.5 h-3.5" />
+  }
+  if (value.includes('dashboard') || value.includes('analytics')) {
+    return <BarChart3 className="w-3.5 h-3.5" />
+  }
+  if (value.includes('ci') || value.includes('devops')) {
+    return <Network className="w-3.5 h-3.5" />
+  }
+  return <Code className="w-3.5 h-3.5" />
 }
 
 export function ProjectCard({ project, compact = false }: ProjectCardProps) {
-  const visual = projectVisuals[project.slug]
-
   return (
-    <Card
-      component={motion.article}
+    <motion.article
       whileHover={{ y: -6 }}
       transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-      sx={(theme) => ({
-        ...glassSurface(theme, 'default'),
-        position: 'relative',
-        overflow: 'hidden',
-      })}
+      className="relative rounded-2xl overflow-hidden border border-slate-200/80 dark:border-slate-800 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md shadow-xs hover:shadow-md transition-shadow flex flex-col justify-between"
     >
-      <Box
-        aria-hidden
-        sx={{
-          position: 'absolute',
-          insetInline: 0,
-          top: 0,
-          height: 120,
-          backgroundImage: project.coverGradient,
-          opacity: 0.9,
-          filter: 'blur(36px)',
-        }}
-      />
-      <CardContent sx={{ position: 'relative', p: 3 }}>
-        {visual ? (
-          <Box
-            component={motion.img}
-            loading="lazy"
-            src={visual.cover}
-            alt={`Preview do projeto ${project.title}`}
-            whileHover={{ scale: 1.01 }}
-            transition={{ duration: 0.3 }}
-            sx={{
-              mb: 2.2,
-              borderRadius: 2.2,
-              border: (theme) => `1px solid ${theme.palette.divider}`,
-              height: 170,
-              objectFit: 'cover',
-            }}
-          />
-        ) : null}
+      <div className="p-5 sm:p-6 flex flex-col flex-1">
+        <div className="mb-4">
+          <ProjectMockupFrame slug={project.slug} />
+        </div>
 
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 1 }}>
-          <Typography variant="overline" color="text.secondary" sx={{ letterSpacing: '0.16em', fontWeight: 700 }}>
+        <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+          <span className="text-xs uppercase font-bold tracking-wider text-slate-500 dark:text-slate-400 font-mono">
             {project.role}
-          </Typography>
-          <Box
-            sx={{
-              borderRadius: 999,
-              px: 1.2,
-              py: 0.4,
-              bgcolor: 'text.primary',
-              color: (theme) => theme.palette.background.default,
-              fontSize: 11,
-              fontWeight: 700,
-            }}
-          >
+          </span>
+          <span className="rounded-full px-2.5 py-0.5 text-xs font-semibold bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-950 shadow-2xs">
             {project.metric}
-          </Box>
-        </Box>
+          </span>
+        </div>
 
-        <Typography variant="h5" sx={{ mt: 1.5, fontSize: '1.35rem' }}>
+        <h3 className="text-xl font-bold text-slate-900 dark:text-white mt-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
           {project.title}
-        </Typography>
-        <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+        </h3>
+
+        <p className="text-sm font-medium text-slate-600 dark:text-slate-300 mt-2">
           {project.headline}
-        </Typography>
-        <Typography variant="body2" color="text.secondary" sx={{ mt: 1.4, lineHeight: 1.75 }}>
+        </p>
+
+        <p className="text-sm text-slate-500 dark:text-slate-400 mt-2.5 leading-relaxed flex-1">
           {compact ? project.summary : project.impact}
-        </Typography>
+        </p>
 
-        <Box component="ul" sx={{ mt: 2.2, display: 'flex', flexWrap: 'wrap', gap: 0.9, p: 0, m: 0, listStyle: 'none' }}>
+        <ul className="mt-5 flex flex-wrap gap-2 list-none p-0 m-0">
           {project.stack.map((tech) => (
-            <Box key={tech} component="li">
-              <Tag
-                sx={{
-                  '& .MuiChip-label': {
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: 0.5,
-                  },
-                }}
-              >
-                <Box component="span" sx={{ display: 'inline-flex', alignItems: 'center' }}>
-                  {getStackIcon(tech)}
-                </Box>
-                {tech}
+            <li key={tech}>
+              <Tag>
+                {getStackIcon(tech)}
+                <span>{tech}</span>
               </Tag>
-            </Box>
+            </li>
           ))}
-        </Box>
+        </ul>
 
-        <Box
-          component={Link}
-          to={`/projetos/${project.slug}`}
-          sx={{
-            mt: 2.6,
-            display: 'inline-flex',
-            color: 'text.primary',
-            fontSize: 14,
-            fontWeight: 700,
-            textUnderlineOffset: '4px',
-            textDecorationColor: 'divider',
-            '&:hover': {
-              textDecorationColor: 'text.primary',
-            },
-          }}
-          onClick={() => trackEvent(analyticsEvents.projectCardClick, { slug: project.slug })}
-        >
-          Ver estudo de caso
-        </Box>
-      </CardContent>
-    </Card>
+        <div className="mt-6 pt-4 border-t border-slate-200/60 dark:border-slate-800">
+          <Link
+            to={`/projetos/${project.slug}`}
+            className="inline-flex items-center gap-1.5 text-sm font-semibold text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors group"
+            onClick={() => trackEvent(analyticsEvents.projectCardClick, { slug: project.slug })}
+          >
+            <span>Ver estudo de caso</span>
+            <span className="transition-transform group-hover:translate-x-1 text-xs">→</span>
+          </Link>
+        </div>
+      </div>
+    </motion.article>
   )
 }

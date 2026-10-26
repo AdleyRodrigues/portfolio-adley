@@ -3,7 +3,6 @@ import type { EducationItem, Project, TimelineItem } from '../types/site'
 export const siteUrl = 'https://portfolio-adley.vercel.app'
 
 export const navigation = [
-  { label: 'Guidetech', href: '/#guidetech' },
   { label: 'Projetos', href: '/#projetos' },
   { label: 'GitHub', href: '/#github' },
   { label: 'Sobre', href: '/#sobre' },
@@ -250,7 +249,7 @@ export const education: EducationItem[] = [
 ]
 
 export const about =
-  'Engenheiro de Software Sênior e Tech Lead com 5+ anos em produtos de alta exigência, especialmente nos setores financeiro e educacional. Minha trajetória combina liderança técnica, arquitetura pragmática e execução hands-on com React, TypeScript, C#/.NET, APIs e SQL Server para transformar requisitos de negócio em soluções escaláveis.'
+  'Engenheiro de Software Sênior e Líder Técnico com mais de 5 anos de experiência projetando e escalando produtos digitais de alta exigência, com foco em Fintech e sistemas corporativos. Minha atuação combina liderança de times, rigor arquitetural e execução prática de ponta a ponta com React, TypeScript e ecossistema .NET, transformando desafios complexos de negócio em plataformas robustas, performáticas e de alta disponibilidade.'
 
 export const socialLinks = {
   github: 'https://github.com/AdleyRodrigues',

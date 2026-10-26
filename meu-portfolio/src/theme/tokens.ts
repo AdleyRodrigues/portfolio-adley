@@ -1,4 +1,4 @@
-import type { PaletteMode } from '@mui/material'
+import type { PaletteMode } from './ThemeModeContext'
 
 export const lightTokens = {
   background: {

@@ -1,11 +1,6 @@
-import {
-  CssBaseline,
-  ThemeProvider,
-  type PaletteMode,
-} from '@mui/material'
 import { useEffect, useMemo, useState, type PropsWithChildren } from 'react'
-import { createAppTheme } from './theme'
-import { ThemeModeContext } from './ThemeModeContext'
+import { ThemeModeContext, type PaletteMode } from './ThemeModeContext'
+
 const STORAGE_KEY = 'portfolio-theme-mode'
 
 export function ThemeModeProvider({ children }: PropsWithChildren) {
@@ -17,8 +12,17 @@ export function ThemeModeProvider({ children }: PropsWithChildren) {
       setMode(storedMode)
       return
     }
-    setMode('light')
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+    setMode(prefersDark ? 'dark' : 'light')
   }, [])
+
+  useEffect(() => {
+    if (mode === 'dark') {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+  }, [mode])
 
   const toggleMode = () => {
     setMode((current) => {
@@ -36,14 +40,9 @@ export function ThemeModeProvider({ children }: PropsWithChildren) {
     [mode],
   )
 
-  const theme = useMemo(() => createAppTheme(mode), [mode])
-
   return (
     <ThemeModeContext.Provider value={value}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        {children}
-      </ThemeProvider>
+      {children}
     </ThemeModeContext.Provider>
   )
 }

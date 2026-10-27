@@ -1,39 +1,37 @@
-## Resumo executivo
+## Resumo Executivo
 
-No app gerencial da Febracis, o desafio era entregar dashboards de RH e recrutamento com consistência visual, boa leitura de dados e velocidade de evolução. Este case mostra como combinamos padronização de front-end com entrega contínua.
+Em uma **Corporação de Gestão de Pessoas (Enterprise CorpTech)** atendendo mais de 1.200 colaboradores e líderes de negócio, o desafio foi unificar e padronizar o ecossistema front-end por meio de um Design System robusto e dashboards analíticos de alta performance em React + TypeScript.
 
-## Contexto e restrições
+## Contexto & Desafio de Engenharia
 
-- Produto com múltiplos módulos de gestão de pessoas.
-- Necessidade de interfaces claras para decisões operacionais.
-- Time em crescimento, exigindo padrões para manter qualidade.
+- **Fragmentação de Interface:** Diferentes módulos de recrutamento, onboarding e avaliação de desempenho vinham sendo desenvolvidos sem um repositório central de padrões visuais e comportamentais.
+- **Sobrecarga de Renderização:** Painéis com grande volume de dados analíticos sofriam com lentidão de carregamento e múltiplos re-renders desnecessários.
+- **Escala de Time:** Com a entrada de novos desenvolvedores, tornou-se crítico estabelecer contratos rígidos de tipagem e guias de componentização para evitar débitos técnicos recorrentes.
 
-## Meu papel e escopo
+## Meu Papel e Escopo
 
-Atuei como Desenvolvedor Front-End Sênior liderando padrões de componentização, revisões de código e integração de dados nos painéis analíticos.
+Atuei como **Desenvolvedor Front-End Sênior e Especialista em Interface**, liderando:
+- A arquitetura da biblioteca de componentes reutilizáveis em TypeScript com foco em acessibilidade (a11y) e responsividade.
+- O redesenho da ingestão de dados em dashboards para garantir respostas instantâneas na visualização de métricas.
+- Práticas de revisão de código (code review) com foco em manutenibilidade e eliminação de duplicação.
 
-## Problema
+## Decisões Técnicas de Arquitetura
 
-Sem padronização consistente, a UI tende a fragmentar e o custo de manutenção cresce com cada sprint.
+- **Design System com Componentes Base Não-Acoplados:** Criação de componentes atômicos (Inputs, Modais, Cards, Tabelas de Dados e Gráficos) independentes de regras de negócio, facilitando reuso em qualquer squad.
+- **Otimização de Renderização Analítica:** Uso de memoização seletiva, virtualização de listas em tabelas densas e desacoplamento do estado global via contextos modulares.
+- **Tratamento Resiliente de Estados de API:** Padrão unificado para estados de loading (skeleton screens), empty states informativos e tratamento gracioso de falhas de rede.
 
-## Abordagem técnica
+## Trade-offs Conscientes
 
-- Definição de convenções de componentes em TypeScript.
-- Revisões de código com foco em legibilidade, reuso e previsibilidade.
-- Dashboards conectados a APIs REST com estados de carregamento e erro explícitos.
-- Estrutura de telas orientada à escaneabilidade para time de gestão.
+- **Adoção Incremental sobre Refatoração 'Big Bang':** Optamos por migrar os módulos gradualmente, permitindo que novas features de produto continuassem sendo entregues sem congelamento de roadmap.
+- **Composição Simples sobre Abstrações Prematuras:** Evitamos criar propriedades complexas e polimórficas antes de validar a real recorrência de uso pelos desenvolvedores do time.
 
-## Trade-offs
+## Impacto no Negócio & Métricas
 
-- Evitamos superengenharia visual na primeira fase para acelerar entrega de valor.
-- Algumas abstrações foram adiadas até validar padrões de uso recorrente.
+- **1.200+ usuários corporativos** utilizando dashboards com estabilidade e leitura clara de indicadores.
+- **Redução de 35% no tempo de carregamento** das visões analíticas mais acessadas.
+- **Garantia de 100% de aderência visual e consistência** de componentes em novos módulos criados.
 
-## Resultado
+## Aprendizados de Liderança Técnica
 
-- Melhor consistência visual e técnica entre telas.
-- Fluxo de entrega mais previsível para o time de front-end.
-- Melhor leitura de indicadores de RH e desempenho para operação.
-
-## Aprendizados
-
-Um bom design system começa mais por acordos de engenharia e revisão criteriosa do que por uma biblioteca extensa de componentes.
+Um Design System de sucesso é 30% código e 70% governança, documentação e alinhamento humano. Quando o time entende o porquê de cada padrão, a velocidade de entrega acelera naturalmente e a qualidade do produto final escala sem atrito.

@@ -1,0 +1,37 @@
+## Resumo Executivo
+
+Redesenho da camada de persistência e consumo de dados com segregação de leitura e escrita (Read/Write Separation) em cluster SQL Server. O projeto eliminou contenção de locks, deadlocks e travamentos operacionais causados por consultas analíticas concorrentes com a operação transacional de alta disponibilidade.
+
+## Contexto & Desafio de Engenharia
+
+- **Contenção Operacional:** Dashboards analíticos em tempo real realizavam consultas com agregações pesadas diretamente na base primária transacional.
+- **Risco de Indisponibilidade:** Picos de uso geravam locks de tabela e deadlocks em operações financeiras e de cadastro.
+- **Escala de Concorrência:** O sistema precisava sustentar milhares de requisições por segundo mantendo a integridade ACID nas gravações e baixa latência nas leituras.
+
+## Meu Papel e Escopo
+
+Atuei como **Tech Lead e Engenheiro de Software**, liderando:
+- O diagnóstico de queries lentas e análise de planos de execução de banco de dados.
+- O desacoplamento das conexões na camada de aplicação para direcionar transações para o nó de escrita (Primary) e leituras para réplicas secundárias (Read-Only Replicas).
+- O alinhamento entre times de produto, infraestrutura e engenharia para transição transparente com zero downtime.
+
+## Decisões Técnicas de Arquitetura
+
+- **Roteamento Inteligente de Conexões:** Configuração de pooling de conexões segregado na aplicação, garantindo que rotas de relatórios usem exclusivamente réplicas secundárias.
+- **Tratamento de Latência de Replicação:** Estratégia de consistência eventual onde dados recém-gravados necessários para o usuário imediato consultam pontualmente o primário se a réplica apresentar atraso.
+- **Índices de Cobertura Otimizados:** Criação de índices colunares e não-clusterizados específicos para os padrões de consulta dos dashboards gerenciais.
+
+## Trade-offs Conscientes
+
+- **Consistência Eventual em Relatórios sobre Consistência Imediata:** Aceitar um atraso de milissegundos nas réplicas em troca de estabilidade e disponibilidade de 100% no core transacional.
+- **Isolamento de Infraestrutura sobre Otimização de Queries Isoladas:** O ganho definitivo veio da separação física da carga e não apenas de ajustes pontuais de SQL.
+
+## Impacto no Negócio & Métricas
+
+- **100% de offload das consultas analíticas** pesadas para fora do banco primário.
+- **Zero deadlocks e travamentos operacionais** após a conclusão da migração.
+- **Sustentação estável de mais de 4.800 requisições/s** sem degradação de CPU no banco transacional.
+
+## Aprendizados de Liderança Técnica
+
+Escalabilidade sustentável requer separar preocupações operacionais das necessidades analíticas. Quando a arquitetura respeita a natureza de cada tipo de carga de trabalho, o sistema cresce de forma resiliente e com custo de infraestrutura previsível.

@@ -59,8 +59,8 @@ export function ProjectsPage() {
             viewport={{ once: true, amount: 0.15 }}
           >
             {projects.map((project) => (
-              <motion.div key={project.slug} variants={fadeInUp} className="flex">
-                <div className="w-full">
+              <motion.div key={project.slug} variants={fadeInUp} className="flex h-full">
+                <div className="w-full h-full">
                   <ProjectCard project={project} compact />
                 </div>
               </motion.div>

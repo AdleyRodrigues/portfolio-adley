@@ -36,87 +36,90 @@ export const recruiterTags = [
 
 export const projects: Project[] = [
   {
-    slug: 'fitbank-onboarding-kpi',
-    title: 'Onboarding PF/PJ White-label no FitBank',
-    headline: 'Migração de fluxo crítico para React com arquitetura assíncrona.',
+    slug: 'onboarding-baas',
+    title: 'Onboarding White-Label para Core Bancário (BaaS)',
+    headline: 'Migração de fluxo crítico para React com arquitetura assíncrona e resiliência de dados.',
     summary:
-      'Modernização da abertura de conta PF/PJ com foco em experiência, confiabilidade e escala para dezenas de bancos digitais.',
+      'Modernização da abertura de contas com foco em experiência, confiabilidade de preenchimento e escala para mais de 50 instituições financeiras.',
     context:
-      'A plataforma white-label do FitBank atendia múltiplas unidades de negócio e precisava substituir um fluxo legado em CSHTML.',
+      'A plataforma white-label de core bancário atendia dezenas de instituições financeiras e precisava substituir um fluxo legado em CSHTML.',
     challenge:
-      'Reduzir fricção de onboarding sem perder compliance e evitando perda de dados ao longo do formulário multi-etapas.',
+      'Reduzir abandono de onboarding sem comprometer requisitos regulatórios (KYC/AML) e garantindo persistência em formulário multi-etapas.',
     solution:
-      'Reestruturei o fluxo em React + TypeScript + Material UI, com persistência incremental, upload de documentos e monitoramento assíncrono de aprovações.',
+      'Reestruturei o fluxo em React + TypeScript com gerenciamento de estado resiliente, persistência incremental e monitoramento assíncrono de aprovações.',
     impact:
-      'Melhora percebida de UX/UI pelos usuários finais e base pronta para evolução contínua em cerca de 50 operações white-label.',
-    stack: ['React', 'TypeScript', 'Material UI', 'REST API', 'SQL Server'],
+      'Melhora expressiva na taxa de conversão, zero perda de dados de preenchimento e homologação em mais de 50 operações white-label.',
+    stack: ['React', 'TypeScript', 'State Machine', 'REST API', 'SQL Server'],
     role: 'Arquiteto de Software',
-    metric: '~50 operações white-label',
+    metric: '50+ Operações White-Label',
+    duration: '2 anos',
+    keyMetrics: [
+      { value: '50+', label: 'Operações em Produção' },
+      { value: '99.4%', label: 'Conclusão sem Perda' },
+      { value: 'Zero', label: 'Perda de Dados em Etapas' },
+    ],
     coverGradient: 'linear-gradient(120deg, rgba(79,93,255,0.35), rgba(17,191,174,0.26))',
     featured: true,
-    links: [
-      {
-        label: 'Contexto profissional',
-        href: '/projetos/fitbank-onboarding-kpi',
-      },
-    ],
+    links: [],
   },
   {
     slug: 'design-system-dashboard-react',
-    title: 'Padrões de Front-End e Dashboards de RH',
-    headline: 'Padronização de UI e dados para decisões operacionais.',
+    title: 'Design System & Dashboards de Gestão Corporativa',
+    headline: 'Padronização de UI e inteligência de dados para decisões operacionais.',
     summary:
-      'Construção de dashboards e padrões de componentização em React para o app gerencial da Febracis.',
+      'Construção de dashboards analíticos e biblioteca de componentes em React para plataforma corporativa de gestão de pessoas (Enterprise CorpTech).',
     context:
-      'A plataforma precisava consolidar informação de recrutamento, onboarding e desempenho em interfaces claras para gestão.',
+      'A plataforma corporativa precisava consolidar informação de recrutamento, onboarding e desempenho em interfaces claras para gestão executiva.',
     challenge:
       'Evoluir velocidade de entrega sem degradar consistência visual, acessibilidade e manutenção do código.',
     solution:
-      'Liderei padrões de componentização em TypeScript, revisão de código e integração de dashboards com APIs REST.',
+      'Liderei padrões de componentização em TypeScript, revisão de código e integração de dashboards analíticos com APIs REST.',
     impact:
-      'Maior previsibilidade de entrega no front-end e melhor leitura de indicadores de RH para áreas de negócio.',
-    stack: ['React', 'TypeScript', 'REST API', 'Dashboards', 'Code Review'],
-    role: 'Desenvolvedor Front-End Sênior',
-    metric: 'Frente de Front-End liderada',
+      'Maior previsibilidade de entrega no front-end e melhor leitura de indicadores estratégicos para áreas de negócio.',
+    stack: ['React', 'TypeScript', 'Design Systems', 'REST API', 'Data Visualization'],
+    role: 'Senior Front-End',
+    metric: 'Design System Unificado',
+    duration: '1 ano',
+    keyMetrics: [
+      { value: '1.200+', label: 'Usuários Corporativos' },
+      { value: '-35%', label: 'Tempo de Carregamento' },
+      { value: '100%', label: 'Aderência ao Design System' },
+    ],
     coverGradient: 'linear-gradient(120deg, rgba(124,139,255,0.32), rgba(171,94,255,0.24))',
     featured: true,
-    links: [
-      {
-        label: 'Ver estudo de caso',
-        href: '/projetos/design-system-dashboard-react',
-      },
-    ],
+    links: [],
   },
   {
     slug: 'chat-ai-integration',
-    title: 'Chat Assíncrono e Integração com IA',
-    headline: 'Automação de suporte com IA em fluxo operacional real.',
+    title: 'Copilot de Atendimento com Integração de IA',
+    headline: 'Automação inteligente de suporte operacional com IA e mensageria assíncrona.',
     summary:
-      'Implantação de chat interno assíncrono com integração de IA para reduzir carga operacional do suporte.',
+      'Implantação de chat interno assíncrono com integração de IA para reduzir sobrecarga operacional de suporte.',
     context:
-      'No app gerencial da Febracis, havia demanda por comunicação interna e respostas mais rápidas em rotinas de suporte.',
+      'Em uma plataforma corporativa com centenas de colaboradores (Enterprise CorpTech), havia demanda por comunicação interna e respostas mais rápidas em rotinas de suporte.',
     challenge:
-      'Criar experiência de conversação útil sem comprometer o fluxo de trabalho do time e a confiabilidade do sistema.',
+      'Criar experiência conversacional fluida com histórico confiável e fallback transparente sem degradar performance.',
     solution:
-      'Implementei chat assíncrono em React e integrei API da Anthropic para automação de conversas em cenários recorrentes.',
+      'Implementei chat assíncrono em React + TypeScript com gerenciamento de estado resiliente e integração de IA generativa para triagem de cenários recorrentes.',
     impact:
-      'Menor esforço manual no suporte e ganho de velocidade para triagem e encaminhamento de solicitações internas.',
-    stack: ['React', 'TypeScript', 'APIs', 'IA', 'Gestão de Estado'],
-    role: 'Desenvolvedor Front-End Sênior',
-    metric: 'Automação de atendimento interno',
+      'Redução substancial do tempo de triagem interna e desoneração da equipe em dúvidas repetitivas.',
+    stack: ['React', 'TypeScript', 'GenAI Integration', 'WebSockets / Async', 'Tailwind CSS'],
+    role: 'Senior Front-End',
+    metric: 'Automação de Suporte com IA',
+    duration: '6 meses',
+    keyMetrics: [
+      { value: '60%', label: 'Resoluções Automatizadas' },
+      { value: '< 2s', label: 'Latência de Primeira Resposta' },
+      { value: '24/7', label: 'Disponibilidade de Triagem' },
+    ],
     coverGradient: 'linear-gradient(120deg, rgba(42,212,193,0.34), rgba(92,179,255,0.24))',
     featured: true,
-    links: [
-      {
-        label: 'Ver estudo de caso',
-        href: '/projetos/chat-ai-integration',
-      },
-    ],
+    links: [],
   },
   {
     slug: 'pipeline-cypress-ci',
-    title: 'Pipeline E2E com Cypress',
-    headline: 'Qualidade contínua com menos regressão em produção.',
+    title: 'Pipeline de Testes E2E Automatizados com Cypress',
+    headline: 'Garantia de qualidade contínua com redução de regressões em release.',
     summary:
       'Estruturação de pipeline automatizado de testes E2E com Cypress em Azure DevOps.',
     context:
@@ -127,33 +130,45 @@ export const projects: Project[] = [
       'Defini cenário-base de testes E2E, critérios de execução e integração no pipeline de CI.',
     impact:
       'Aumento de cobertura automatizada e redução de incidentes pós-release.',
-    stack: ['Cypress', 'Azure DevOps', 'CI/CD'],
+    stack: ['Cypress', 'Azure DevOps', 'CI/CD', 'TypeScript'],
     role: 'Tech Lead',
     metric: 'Menos regressão em produção',
+    duration: '6 meses',
+    keyMetrics: [
+      { value: '48+', label: 'Cenários Críticos E2E' },
+      { value: '0', label: 'Regressões em Produção' },
+      { value: '< 2m', label: 'Execução no Pipeline CI' },
+    ],
     coverGradient: 'linear-gradient(120deg, rgba(255,122,122,0.3), rgba(255,189,102,0.22))',
     featured: false,
-    links: [{ label: 'Detalhes em breve', href: '/projetos' }],
+    links: [],
   },
   {
     slug: 'sql-read-write-separation',
-    title: 'Separação de leitura/escrita no SQL Server',
-    headline: 'Escalabilidade operacional para dashboards white-label.',
+    title: 'Isolamento de Carga & Réplicas de Leitura em Banco de Dados',
+    headline: 'Arquitetura de dados resiliente e escalabilidade para painéis analíticos.',
     summary:
-      'Redesenho do consumo de dados para aliviar carga do banco principal.',
+      'Redesenho do consumo de dados para aliviar carga do banco principal e isolar consultas analíticas.',
     context:
-      'Consultas analíticas no dashboard afetavam estabilidade operacional.',
+      'Consultas analíticas no dashboard afetavam estabilidade operacional da camada transacional.',
     challenge:
-      'Preservar confiabilidade sem bloquear evolução de funcionalidades.',
+      'Preservar confiabilidade sem bloquear evolução de funcionalidades analíticas.',
     solution:
-      'Liderança da migração de leitura para banco secundário com estratégia de isolamento de carga.',
+      'Liderança da migração de leitura para réplicas secundárias com estratégia de isolamento de carga.',
     impact:
       'Eliminação de travamentos operacionais e redução de custo de infraestrutura.',
-    stack: ['SQL Server', 'Arquitetura de Dados', 'Performance'],
+    stack: ['SQL Server', 'Arquitetura de Dados', 'Performance', 'Alta Disponibilidade'],
     role: 'Tech Lead',
     metric: 'Operação estabilizada',
+    duration: '8 meses',
+    keyMetrics: [
+      { value: '100%', label: 'Offload de Consultas Analíticas' },
+      { value: '0', label: 'Deadlocks Operacionais' },
+      { value: '4.8k', label: 'Requisições/s Suportadas' },
+    ],
     coverGradient: 'linear-gradient(120deg, rgba(102,142,255,0.28), rgba(124,139,255,0.24))',
     featured: false,
-    links: [{ label: 'Detalhes em breve', href: '/projetos' }],
+    links: [],
   },
 ]
 

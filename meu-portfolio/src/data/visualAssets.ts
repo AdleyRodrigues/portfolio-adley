@@ -6,24 +6,28 @@ export type ProjectVisual = {
 export const heroVisual = '/visual/hero-tech-visual.svg'
 
 export const projectVisuals: Record<string, ProjectVisual> = {
+  'onboarding-baas': {
+    cover: '/visual/project-fitbank.svg',
+    gallery: [],
+  },
   'fitbank-onboarding-kpi': {
     cover: '/visual/project-fitbank.svg',
-    gallery: ['/visual/gallery-fitbank-1.svg', '/visual/gallery-fitbank-2.svg'],
+    gallery: [],
   },
   'design-system-dashboard-react': {
     cover: '/visual/project-dashboard.svg',
-    gallery: ['/visual/gallery-dashboard-1.svg', '/visual/gallery-dashboard-2.svg'],
+    gallery: [],
   },
   'chat-ai-integration': {
     cover: '/visual/project-chat.svg',
-    gallery: ['/visual/gallery-chat-1.svg', '/visual/gallery-chat-2.svg'],
+    gallery: [],
   },
   'pipeline-cypress-ci': {
     cover: '/visual/project-dashboard.svg',
-    gallery: ['/visual/gallery-dashboard-1.svg', '/visual/gallery-dashboard-2.svg'],
+    gallery: [],
   },
   'sql-read-write-separation': {
     cover: '/visual/project-fitbank.svg',
-    gallery: ['/visual/gallery-fitbank-1.svg', '/visual/gallery-fitbank-2.svg'],
+    gallery: [],
   },
 }

@@ -1,12 +1,41 @@
 import { motion } from 'framer-motion'
+import { Briefcase, Building2, Users, ShieldCheck } from 'lucide-react'
 import { GitHubAnalytics } from '../GitHubAnalytics'
 import { githubUsername } from '../../data/siteContent'
 
 const impactStats = [
-  { value: '5+ anos', label: 'Em engenharia e arquitetura de software' },
-  { value: '~50 bancos', label: 'Operações white-label atendidas no FitBank' },
-  { value: '1.200+', label: 'Usuários corporativos em dashboards gerenciados' },
-  { value: '100% TS', label: 'Código em TypeScript com tipagem estrita e testes' },
+  {
+    number: '5+',
+    unit: 'Anos',
+    title: 'Experiência em Engenharia',
+    description: 'Arquitetura de software e liderança técnica de ponta a ponta',
+    icon: Briefcase,
+    accent: 'text-blue-600 dark:text-blue-400 bg-blue-500/10 border-blue-500/20',
+  },
+  {
+    number: '50+',
+    unit: 'Operações',
+    title: 'Instituições em Produção',
+    description: 'Plataforma white-label com core bancário e validações KYC',
+    icon: Building2,
+    accent: 'text-indigo-600 dark:text-indigo-400 bg-indigo-500/10 border-indigo-500/20',
+  },
+  {
+    number: '1.200+',
+    unit: 'Colaboradores',
+    title: 'Usuários Ativos em Dashboards',
+    description: 'Interfaces analíticas corporativas com alta densidade de dados',
+    icon: Users,
+    accent: 'text-cyan-600 dark:text-cyan-400 bg-cyan-500/10 border-cyan-500/20',
+  },
+  {
+    number: '100%',
+    unit: 'TypeScript',
+    title: 'Tipagem Estrita & Testes',
+    description: 'Código robusto com testes automatizados em pipelines contínuos',
+    icon: ShieldCheck,
+    accent: 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border-emerald-500/20',
+  },
 ]
 
 export function StatsSection() {
@@ -28,21 +57,41 @@ export function StatsSection() {
             Menos decoração, mais resultado: dados e escala técnica comprovados em produção.
           </h2>
 
-          <ul className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 list-none p-0 m-0">
-            {impactStats.map((item) => (
-              <li
-                key={item.label}
-                className="rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-950/40 p-5 flex flex-col justify-between"
-              >
-                <p className="text-2xl font-extrabold text-blue-600 dark:text-blue-400 font-mono">
-                  {item.value}
-                </p>
-                <p className="mt-2 text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-medium">
-                  {item.label}
-                </p>
-              </li>
-            ))}
-          </ul>
+          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4.5">
+            {impactStats.map((item) => {
+              const Icon = item.icon
+
+              return (
+                <div
+                  key={item.title}
+                  className="rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-950/50 p-5 flex flex-col justify-between hover:border-slate-300 dark:hover:border-slate-700 hover:-translate-y-1 transition-all duration-300 shadow-2xs hover:shadow-sm group"
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-3.5">
+                      <span className={`p-2 rounded-xl border ${item.accent}`}>
+                        <Icon className="w-4 h-4" />
+                      </span>
+                      <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded-md bg-slate-200/60 dark:bg-slate-800/80">
+                        {item.unit}
+                      </span>
+                    </div>
+
+                    <div className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                      {item.number}
+                    </div>
+
+                    <h3 className="mt-2 text-sm font-bold text-slate-800 dark:text-slate-200 tracking-tight">
+                      {item.title}
+                    </h3>
+
+                    <p className="mt-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
         </motion.div>
       </div>
 

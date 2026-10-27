@@ -1,0 +1,37 @@
+## Resumo Executivo
+
+Estruturação e implantação de uma esteira automatizada de testes End-to-End (E2E) com Cypress e TypeScript integrada ao pipeline de Integração Contínua (CI/CD) no Azure DevOps. O objetivo foi erradicar incidentes de regressão em fluxos transacionais críticos em ambiente de alta frequência de releases.
+
+## Contexto & Desafio de Engenharia
+
+- **Crescimento Acelerado de Features:** Múltiplas squads realizando entregas contínuas aumentavam o risco de quebras silenciosas em fluxos essenciais de pagamento e cadastro.
+- **Testes Manuais Inviáveis:** O ciclo de validação manual antes de cada release consumia horas da equipe e não cobria todas as variações de estado de interface.
+- **Instabilidade (Flakiness) de Pipelines:** Testes E2E legados sofriam com falhas intermitentes devido a timeouts e sincronização inadequada de requisições assíncronas.
+
+## Meu Papel e Escopo
+
+Atuei como **Tech Lead e Arquiteto de Testes**, sendo responsável por:
+- Desenhar a arquitetura do framework de testes E2E com Cypress, Page Object Model (POM) e tipagem rigorosa em TypeScript.
+- Integrar a execução paralela de testes no pipeline de pull requests do Azure DevOps com bloqueio de merge em caso de quebra.
+- Definir a matriz de cenários críticos (*happy path* e *edge cases* transacionais) e treinar os engenheiros do time na criação e manutenção de specs.
+
+## Decisões Técnicas de Arquitetura
+
+- **Interceptação e Mock Determinístico de Redes:** Uso de interceptors no Cypress para simular respostas de APIs externas com latência controlada, eliminando flakiness.
+- **Execução Paralelizada em Containers:** Distribuição das suites de testes em jobs paralelos na nuvem, mantendo o tempo total de execução abaixo de 2 minutos.
+- **Relatórios Automatizados com Artefatos de Evidência:** Geração automática de vídeos e capturas de tela apenas quando um teste falha, acelerando a triagem de bugs.
+
+## Trade-offs Conscientes
+
+- **Foco em Fluxos Críticos sobre Cobertura Irreal de 100%:** Priorizamos cobrir 100% dos fluxos que movem receita e cadastro em vez de tentar cobrir cada botão decorativo da interface.
+- **Testes Determinísticos sobre Dependência de Ambientes Instáveis:** Isolamento dos testes contra instabilidades de ambientes externos compartilhados.
+
+## Impacto no Negócio & Métricas
+
+- **48+ cenários críticos protegidos** contra regressões em todas as branches de desenvolvimento.
+- **Zero incidentes de regressão em produção** nos fluxos automatizados após a implantação da esteira.
+- **Pipeline de CI concluído em menos de 2 minutos**, sem gargalos no ritmo diário de deploy.
+
+## Aprendizados de Liderança Técnica
+
+Automação de qualidade só é adotada pelo time quando é rápida, confiável e não interrompe o fluxo de trabalho. Testes que quebram à toa geram descrédito; testes estáveis e rápidos transformam a cultura de engenharia.

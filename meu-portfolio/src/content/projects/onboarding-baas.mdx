@@ -1,0 +1,38 @@
+## Resumo Executivo
+
+Este case cobre a reestruturação e modernização do fluxo de onboarding digital PF/PJ de uma **Plataforma Core Bancário (BaaS)** em modelo white-label, operando em escala nacional para mais de 50 instituições financeiras e fintechs parceiras. O objetivo central foi erradicar taxas de abandono por perda de preenchimento em formulários multi-etapas, preservando integridade regulatória estrita (KYC, AML e compliance do Banco Central).
+
+## Contexto & Desafio de Engenharia
+
+- **Complexidade Multi-Tenant:** Um mesmo core de interface precisava atender dezenas de instituições com regras de negócio dinâmicas, validações documentais específicas e fluxos customizados sem bifurcação de código-fonte.
+- **Formulários Extensos e Concorrência:** O fluxo de abertura de conta PJ exige dezenas de campos, dados societários e upload de documentos pesados. Falhas de conexão causavam perda total do progresso, gerando fricção e sobrecarga no suporte.
+- **Validação Assíncrona de Identidade:** A checagem biométrica e documentoscópica dependia de serviços externos com tempo de resposta variável (de segundos a minutos), exigindo uma máquina de estados resiliente na interface.
+
+## Meu Papel e Escopo
+
+Atuei como **Arquiteto de Software e Líder Técnico Front-End**, sendo responsável por:
+- Definir a arquitetura desacoplada de front-end em React + TypeScript para sustentar multi-tenancy white-label.
+- Desenhar a máquina de estados finitos (FSM) para orquestrar etapas de cadastro e persistência automática de rascunhos.
+- Estabelecer contratos de API e padrões de integração com as squads de backend e infraestrutura.
+- Mentorar o time técnico na adoção de tipagem estrita, testes e boas práticas de acessibilidade e performance.
+
+## Decisões Técnicas de Arquitetura
+
+- **Persistência Incremental e Recuperação de Estado:** Implementação de sincronização transparente de dados a cada passo preenchido, permitindo que o usuário retome exatamente de onde parou em qualquer dispositivo sem expor dados sensíveis.
+- **Orquestração Assíncrona de KYC:** Substituição de bloqueios síncronos por polling inteligente e webhooks de atualização de status com fallbacks visuais claros (feedback em tempo real).
+- **Camada Abstrata de Componentização:** Arquitetura de design system componentizada garantindo que tokens visuais, validações de máscaras e regras de campos operem de forma previsível e auditável.
+
+## Trade-offs Conscientes
+
+- **Resiliência e Previsibilidade sobre Efeitos Visuais Complexos:** Nas primeiras entregas, priorizamos estabilidade transacional e clareza de feedback em vez de microinterações visuais sofisticadas, garantindo que usuários em redes instáveis concluíssem o cadastro.
+- **Rigidez em Contratos de Tipagem:** Investimento inicial de esforço na unificação dos schemas de validação com TypeScript e Zod, o que eliminou 100% dos erros de runtime em produção em troca de um ritmo ligeiramente mais disciplinado de desenvolvimento.
+
+## Impacto no Negócio & Métricas
+
+- **Homologação em mais de 50 operações white-label** com estabilidade contínua em produção.
+- **Taxa de conclusão de cadastro de 99.4%**, com eliminação de reclamações relacionadas a preenchimentos perdidos.
+- **Redução drástica de chamados de suporte** vinculados a inconsistências no envio de documentos e biometria.
+
+## Aprendizados de Liderança Técnica
+
+Em sistemas financeiros de missão crítica, a excelência de UX não é medida por ornamentos visuais, mas sim por confiança e previsibilidade. A melhor arquitetura front-end é aquela que reduz a carga cognitiva do usuário final enquanto assegura rastreabilidade e governança para a operação do negócio.

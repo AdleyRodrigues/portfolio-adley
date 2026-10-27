@@ -3,6 +3,11 @@ export type ProjectLink = {
   href: string
 }
 
+export type ProjectKeyMetric = {
+  value: string
+  label: string
+}
+
 export type Project = {
   slug: string
   title: string
@@ -15,6 +20,8 @@ export type Project = {
   stack: string[]
   role: string
   metric: string
+  duration?: string
+  keyMetrics?: ProjectKeyMetric[]
   coverGradient: string
   featured: boolean
   links: ProjectLink[]

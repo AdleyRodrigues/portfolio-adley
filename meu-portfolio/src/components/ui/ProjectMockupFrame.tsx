@@ -31,8 +31,8 @@ export function ProjectMockupFrame({ slug, className = '' }: ProjectMockupFrameP
         <div className="flex items-center gap-1.5 px-3 py-0.5 rounded-md bg-slate-900 border border-slate-800 text-[10px] text-slate-400 font-mono tracking-tight max-w-[200px] sm:max-w-xs truncate">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
           <span className="truncate">
-            {slug === 'fitbank-onboarding-kpi' && 'fitbank.com.br/onboarding/pj-v2'}
-            {slug === 'design-system-dashboard-react' && 'app.febracis.com.br/rh/analytics'}
+            {(slug === 'onboarding-baas' || slug === 'fitbank-onboarding-kpi') && 'app.baas-core.internal/onboarding'}
+            {slug === 'design-system-dashboard-react' && 'analytics.corp.internal/dashboard'}
             {slug === 'chat-ai-integration' && 'copilot.internal/ai-assistant'}
             {slug === 'pipeline-cypress-ci' && 'devops.cloud/pipelines/ci-e2e'}
             {slug === 'sql-read-write-separation' && 'monitor.infra/sql-read-replica'}
@@ -46,7 +46,7 @@ export function ProjectMockupFrame({ slug, className = '' }: ProjectMockupFrameP
 
       {/* Mockup Canvas */}
       <div className="p-3 sm:p-4 bg-[#090d16] text-slate-200 h-48 sm:h-52 overflow-hidden flex flex-col justify-between">
-        {slug === 'fitbank-onboarding-kpi' && <FitBankMockup />}
+        {(slug === 'onboarding-baas' || slug === 'fitbank-onboarding-kpi') && <BaaSOnboardingMockup />}
         {slug === 'design-system-dashboard-react' && <DashboardRhMockup />}
         {slug === 'chat-ai-integration' && <ChatAiMockup />}
         {slug === 'pipeline-cypress-ci' && <CypressCiMockup />}
@@ -56,14 +56,14 @@ export function ProjectMockupFrame({ slug, className = '' }: ProjectMockupFrameP
   )
 }
 
-/* 1. FitBank Onboarding White-Label & Banking Dashboard */
-function FitBankMockup() {
+/* 1. Core Bancário Onboarding White-Label & Banking Dashboard */
+function BaaSOnboardingMockup() {
   return (
     <div className="flex flex-col h-full justify-between gap-2 text-xs">
       {/* Mini Header & Step Bar */}
       <div className="flex items-center justify-between pb-2 border-b border-slate-800">
         <div className="flex items-center gap-2">
-          <span className="font-bold text-white text-[11px] tracking-tight">FitBank White-Label</span>
+          <span className="font-bold text-white text-[11px] tracking-tight">Core Bancário White-Label</span>
           <span className="px-1.5 py-0.2 rounded text-[9px] bg-blue-500/20 text-blue-400 border border-blue-500/30 font-medium">
             50+ Tenants
           </span>
@@ -118,7 +118,7 @@ function FitBankMockup() {
   )
 }
 
-/* 2. Febracis RH Dashboard & Design System */
+/* 2. Enterprise CorpTech Dashboard & Design System */
 function DashboardRhMockup() {
   return (
     <div className="flex h-full gap-2 text-xs">
@@ -136,7 +136,7 @@ function DashboardRhMockup() {
       <div className="flex-1 flex flex-col justify-between gap-1.5">
         {/* Topbar */}
         <div className="flex items-center justify-between pb-1 border-b border-slate-800">
-          <span className="font-bold text-white text-[11px]">Dashboard Gestão RH</span>
+          <span className="font-bold text-white text-[11px]">Dashboard Gestão Corporativa</span>
           <span className="px-1.5 py-0.5 rounded text-[9px] bg-slate-800 text-slate-300 font-mono">Q3 • Ativo</span>
         </div>
 

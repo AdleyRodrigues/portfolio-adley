@@ -36,15 +36,15 @@ export function ProjectsSection() {
       >
         {featuredProjects.map((project) => {
           return (
-            <motion.div key={project.slug} variants={fadeInUp} className="flex">
-              <SpotlightCard className="w-full p-6 sm:p-7 flex flex-col justify-between group hover:border-slate-300 dark:hover:border-slate-700 transition-colors">
-                <div>
-                  {/* Top Badges */}
-                  <div className="flex items-center justify-between gap-2 mb-3.5 flex-wrap">
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 font-mono">
+            <motion.div key={project.slug} variants={fadeInUp} className="flex h-full">
+              <SpotlightCard className="w-full h-full p-6 sm:p-7 flex flex-col justify-between group hover:border-slate-300 dark:hover:border-slate-700 transition-colors shadow-2xs hover:shadow-md">
+                <div className="flex flex-col flex-1">
+                  {/* Top Badges (Fixed height, no awkward wrapping) */}
+                  <div className="flex items-center justify-between gap-2 mb-3.5 h-7">
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 font-mono truncate">
                       {project.role}
                     </span>
-                    <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-950 shadow-2xs">
+                    <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-950 shadow-2xs shrink-0">
                       {project.metric}
                     </span>
                   </div>
@@ -54,20 +54,24 @@ export function ProjectsSection() {
                     <ProjectMockupFrame slug={project.slug} />
                   </div>
 
-                  {/* Title & Description */}
-                  <h3 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors tracking-tight">
+                  {/* Title with standardized height */}
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors tracking-tight line-clamp-2 min-h-[3.25rem] sm:min-h-[3.5rem] flex items-center">
                     {project.title}
                   </h3>
-                  <p className="mt-2 text-sm font-semibold text-slate-800 dark:text-slate-200">
+
+                  {/* Headline with standardized height */}
+                  <p className="mt-2 text-sm font-semibold text-slate-800 dark:text-slate-200 line-clamp-2 min-h-[2.5rem]">
                     {project.headline}
                   </p>
-                  <p className="mt-2.5 text-sm text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3">
+
+                  {/* Impact with standardized height */}
+                  <p className="mt-2 text-sm text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3 min-h-[3.75rem]">
                     {project.impact}
                   </p>
 
-                  {/* Tech Stack Tags */}
-                  <div className="mt-5 flex flex-wrap gap-1.5">
-                    {project.stack.map((tech) => (
+                  {/* Tech Stack Tags with consistent spacing */}
+                  <div className="mt-4 pt-2 flex flex-wrap gap-1.5 min-h-[3rem] content-start">
+                    {project.stack.slice(0, 4).map((tech) => (
                       <span
                         key={tech}
                         className="px-2.5 py-1 text-xs font-medium rounded-md bg-slate-100/70 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80 text-slate-700 dark:text-slate-300"
@@ -75,10 +79,15 @@ export function ProjectsSection() {
                         {tech}
                       </span>
                     ))}
+                    {project.stack.length > 4 && (
+                      <span className="px-2 py-1 text-xs font-mono text-slate-400">
+                        +{project.stack.length - 4}
+                      </span>
+                    )}
                   </div>
                 </div>
 
-                {/* Footer Action */}
+                {/* Footer Action (Strictly aligned to the bottom baseline) */}
                 <div className="mt-6 pt-4 border-t border-slate-200/60 dark:border-slate-800 flex items-center justify-between">
                   <Link
                     to={`/projetos/${project.slug}`}

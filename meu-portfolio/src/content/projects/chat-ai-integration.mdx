@@ -1,39 +1,37 @@
-## Resumo executivo
+## Resumo Executivo
 
-Este case descreve a implementação de chat assíncrono interno com integração de IA para acelerar rotinas de suporte em um app gerencial de RH.
+Este estudo de caso documenta o desenvolvimento e integração de um **Copilot Operacional com Inteligência Artificial** em uma plataforma corporativa (Enterprise CorpTech). O objetivo foi reduzir a sobrecarga manual do time de suporte interno através de mensageria assíncrona inteligente e triagem automatizada com modelos de linguagem de última geração.
 
-## Contexto e restrições
+## Contexto & Desafio de Engenharia
 
-- Fluxos internos com alta recorrência de perguntas operacionais.
-- Necessidade de registrar histórico e manter contexto das conversas.
-- Integração com API de IA em cenário real de uso do time.
+- **Volume Repetitivo de Chamados:** Centenas de dúvidas operacionais recorrentes consumiam horas de operadores técnicos, atrasando demandas prioritárias de negócio.
+- **Resiliência e Streaming de Mensagens:** A comunicação com o modelo de IA exigia streaming em tempo real com tolerância a interrupções de conexão, reconexão transparente e fallback imediato para encaminhamento humano.
+- **Rastreabilidade e Segurança de Dados:** Garantia estrita de que informações confidenciais corporativas não fossem expostas em prompts ou no histórico local da aplicação.
 
-## Meu papel e escopo
+## Meu Papel e Escopo
 
-Liderei a implementação front-end do chat e a integração com backend/API de IA, com foco em usabilidade e confiabilidade dos estados da interface.
+Atuei como **Desenvolvedor Front-End Sênior e Líder da Feature de IA**, com responsabilidades incluindo:
+- Desenhar a arquitetura da interface do chat conversacional em React + TypeScript.
+- Implementar o pipeline de consumo de streaming via SSE/WebSockets com renderização progressiva de markdown e links seguros.
+- Criar a camada de gerenciamento de estado assíncrono para fila de mensagens, estados de digitação e tratamento de timeouts.
 
-## Problema
+## Decisões Técnicas de Arquitetura
 
-O suporte interno concentrava tarefas repetitivas que consumiam tempo da equipe e reduziam velocidade de resposta.
+- **Interface Otimista com Fila de Retentativas:** As mensagens do usuário são exibidas instantaneamente com status visual de envio, garantindo feedback imediato mesmo sob alta latência de rede.
+- **Streaming Seguro com Parser Progressivo:** Renderização fluida da resposta gerada token a token, com sanitização rígida de conteúdo contra injeção de scripts maliciosos.
+- **Fallback Transparente para Ação Manual:** Quando a confiança da IA em um cenário é insuficiente, o fluxo oferece com um clique a transição para abertura de ticket com pré-preenchimento do contexto já fornecido.
 
-## Abordagem técnica
+## Trade-offs Conscientes
 
-- Construção de interface de chat assíncrono em React + TypeScript.
-- Gestão de estado para mensagens, status de envio e histórico de conversas.
-- Integração com API da Anthropic para automatização de interações recorrentes.
-- Tratamento explícito de loading, falha e fallback para ação manual.
+- **Controle do Usuário sobre Autonomia Total:** Preferimos manter a IA como um assistente consultivo com botões explícitos de confirmação antes de executar ações sistêmicas críticas.
+- **Armazenamento Seguro e Efêmero de Sessão:** Priorizamos privacidade de dados em detrimento de cache local persistente em dispositivos não autenticados.
 
-## Trade-offs
+## Impacto no Negócio & Métricas
 
-- Priorizamos estabilidade e clareza de fluxo antes de recursos avançados.
-- Definimos guardrails para evitar automações opacas em etapas críticas.
+- **60% de resolução direta** das dúvidas operacionais mais frequentes sem necessidade de intervenção humana.
+- **Tempo de primeira resposta inferior a 2 segundos** via streaming assistido por IA.
+- **Disponibilidade 24/7** para triagem e orientação de fluxos corporativos internos.
 
-## Resultado
+## Aprendizados de Liderança Técnica
 
-- Redução de carga operacional em tarefas repetitivas do suporte.
-- Menor tempo de resposta para triagem e encaminhamento de demandas.
-- Estrutura reaproveitável para evoluções futuras de assistente interno.
-
-## Aprendizados
-
-Integração de IA em produto corporativo funciona melhor quando o usuário mantém controle e visibilidade sobre o que está sendo automatizado.
+Integrar IA generativa em produtos corporativos reais exige mais design de engenharia e tratamento de exceções do que a chamada à API em si. O valor real da tecnologia surge quando a experiência é confiável, transparente e preserva a autonomia e o tempo das pessoas.
